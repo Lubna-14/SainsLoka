@@ -1,0 +1,3786 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SainsLoka — Play. Explore. Discover Science.</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+
+:root{
+  --cream:#f8f0df;
+  --paper:#fffaf0;
+  --ink:#332d29;
+  --muted:#756b63;
+  --border:#d8c7ad;
+
+  --bio:#c85f55;
+  --bio-dark:#7d302c;
+  --bio-light:#f5c6b8;
+  --bio-pale:#fff0e9;
+
+  --phy:#587c9d;
+  --phy-dark:#31546f;
+  --phy-light:#bfd3e1;
+  --phy-pale:#edf5fa;
+
+  --space:#7065a6;
+  --space-dark:#29264e;
+  --space-light:#a9a1d5;
+  --space-gold:#e4c56d;
+
+  --shadow:0 16px 40px rgba(61,45,30,.13);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"DM Sans",sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.screen{
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:auto;
+  position:relative;
+  z-index:5;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:24px 0;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+
+.brand-mark{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:#332d29;
+  color:#fffaf0;
+  box-shadow:0 7px 20px rgba(0,0,0,.14);
+}
+
+.brand-text small{
+  display:block;
+  font-size:10px;
+  letter-spacing:.15em;
+  color:var(--muted);
+}
+
+.brand-text strong{
+  font-size:17px;
+}
+
+.back-btn{
+  border:1px solid var(--border);
+  background:rgba(255,250,240,.78);
+  color:var(--ink);
+  padding:9px 15px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+.back-btn:hover{
+  transform:translateY(-1px);
+}
+
+/* =========================================================
+   DECORATIVE SYSTEM
+========================================================= */
+
+.decor{
+  position:absolute;
+  pointer-events:none;
+  z-index:0;
+}
+
+.decor-dna{
+  width:220px;
+  height:500px;
+  right:-45px;
+  top:100px;
+  opacity:.18;
+  transform:rotate(8deg);
+}
+
+.decor-dna path{
+  fill:none;
+  stroke:var(--bio);
+  stroke-width:4;
+}
+
+.decor-dna line{
+  stroke:var(--bio-dark);
+  stroke-width:2;
+}
+
+.decor-grid{
+  inset:0;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(49,84,111,.15) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(49,84,111,.15) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+
+.decor-orbit{
+  width:700px;
+  height:700px;
+  right:-230px;
+  top:-180px;
+  border:1px solid rgba(228,197,109,.22);
+  border-radius:50%;
+  transform:rotate(-20deg);
+}
+
+.decor-orbit:before,
+.decor-orbit:after{
+  content:"";
+  position:absolute;
+  inset:70px;
+  border:1px solid rgba(228,197,109,.18);
+  border-radius:50%;
+}
+
+.decor-orbit:after{
+  inset:150px;
+}
+
+/* =========================================================
+   HOME
+========================================================= */
+
+.home{
+  background:
+    radial-gradient(circle at 8% 12%,rgba(200,95,85,.13),transparent 24%),
+    radial-gradient(circle at 92% 85%,rgba(88,124,157,.13),transparent 25%),
+    var(--cream);
+}
+
+.hero{
+  padding:60px 0 45px;
+  max-width:780px;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#fff7e8;
+  border:1px solid #e4d1b0;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+.hero h1{
+  margin:18px 0 12px;
+  font-family:"Fraunces",serif;
+  font-size:clamp(48px,8vw,88px);
+  line-height:.92;
+  letter-spacing:-.045em;
+}
+
+.hero h1 span{
+  color:var(--bio);
+}
+
+.hero p{
+  max-width:650px;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.7;
+}
+
+.tagline{
+  font-weight:800;
+  color:var(--ink)!important;
+  margin-top:20px;
+}
+
+.challenge-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  padding:20px 0 70px;
+}
+
+.challenge-card{
+  position:relative;
+  min-height:300px;
+  padding:25px;
+  border-radius:27px;
+  overflow:hidden;
+  border:1px solid;
+  box-shadow:var(--shadow);
+  transition:.25s;
+}
+
+.challenge-card:hover{
+  transform:translateY(-6px);
+}
+
+.challenge-card.bio{
+  background:linear-gradient(145deg,#fff7ed,#f7d4c8);
+  border-color:#df9e91;
+}
+
+.challenge-card.physics{
+  background:linear-gradient(145deg,#f7fbfd,#d7e5ee);
+  border-color:#a9c4d6;
+}
+
+.challenge-card.space{
+  background:linear-gradient(145deg,#34305f,#201d42);
+  border-color:#726ba9;
+  color:#fff;
+}
+
+.card-number{
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.15em;
+  opacity:.65;
+}
+
+.challenge-card h2{
+  font-family:"Fraunces",serif;
+  font-size:34px;
+  margin:15px 0 8px;
+}
+
+.challenge-card p{
+  line-height:1.6;
+  opacity:.8;
+}
+
+.card-illustration{
+  position:absolute;
+  right:15px;
+  bottom:12px;
+  width:145px;
+  height:145px;
+}
+
+.play-btn{
+  position:absolute;
+  left:25px;
+  bottom:23px;
+  border:0;
+  padding:11px 17px;
+  border-radius:12px;
+  font-weight:800;
+  background:#332d29;
+  color:white;
+}
+
+.space .play-btn{
+  background:#eee9ff;
+  color:#29264e;
+}
+
+/* =========================================================
+   GAME HEADER
+========================================================= */
+
+.game{
+  min-height:100vh;
+}
+
+.game.bio-theme{
+  background:
+    radial-gradient(circle at 15% 20%,rgba(200,95,85,.13),transparent 30%),
+    var(--cream);
+}
+
+.game.physics-theme{
+  background:
+    linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.55)),
+    var(--cream);
+}
+
+.game.space-theme{
+  background:
+    radial-gradient(circle at 75% 25%,rgba(112,101,166,.35),transparent 28%),
+    radial-gradient(circle at 20% 70%,rgba(80,68,130,.22),transparent 30%),
+    var(--space-dark);
+  color:#fff;
+}
+
+.game-head{
+  padding:15px 0 5px;
+}
+
+.game-title-row{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:end;
+}
+
+.game-title-row h1{
+  font-family:"Fraunces",serif;
+  margin:7px 0;
+  font-size:clamp(32px,5vw,54px);
+}
+
+.game-title-row p{
+  margin:0;
+  color:var(--muted);
+}
+
+.space-theme .game-title-row p{
+  color:#bcb8da;
+}
+
+.progress-wrap{
+  margin:22px 0;
+}
+
+.progress-meta{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  opacity:.7;
+  margin-bottom:7px;
+}
+
+.progress{
+  height:8px;
+  border-radius:20px;
+  background:rgba(120,100,80,.15);
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  width:20%;
+  border-radius:20px;
+  transition:.4s;
+}
+
+.bio-theme .progress-fill{background:var(--bio)}
+.physics-theme .progress-fill{background:var(--phy)}
+.space-theme .progress-fill{background:var(--space-gold)}
+
+/* =========================================================
+   CONTENT SURFACES
+========================================================= */
+
+.stage{
+  padding:18px 0 70px;
+}
+
+.stage-panel{
+  background:rgba(255,250,240,.9);
+  border:1px solid rgba(150,120,90,.22);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.space-theme .stage-panel{
+  background:rgba(40,37,78,.9);
+  border-color:rgba(228,197,109,.22);
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+
+.stage-top{
+  padding:24px 27px;
+  border-bottom:1px solid rgba(120,100,80,.14);
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:center;
+}
+
+.stage-label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.stage-num{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  font-weight:900;
+}
+
+.bio-theme .stage-num{
+  background:var(--bio-light);
+  color:var(--bio-dark);
+}
+
+.physics-theme .stage-num{
+  background:var(--phy-light);
+  color:var(--phy-dark);
+}
+
+.space-theme .stage-num{
+  background:#50477d;
+  color:#f6dc82;
+}
+
+.stage-label strong{
+  display:block;
+  font-size:14px;
+}
+
+.stage-label span{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.space-theme .stage-label span{
+  color:#aaa6c7;
+}
+
+.stage-body{
+  padding:30px;
+}
+
+.stage-body h2{
+  font-family:"Fraunces",serif;
+  font-size:34px;
+  margin:0 0 8px;
+}
+
+.stage-body > p{
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.space-theme .stage-body > p{
+  color:#bbb8d0;
+}
+
+/* =========================================================
+   BIO VISUAL
+========================================================= */
+
+.bio-lab{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  margin:25px 0;
+}
+
+.medical-display{
+  min-height:220px;
+  border-radius:22px;
+  background:linear-gradient(145deg,#fff7ed,#f8d9ce);
+  border:1px solid #e4aa9c;
+  position:relative;
+  overflow:hidden;
+  padding:20px;
+}
+
+.medical-display .label{
+  position:absolute;
+  top:14px;
+  left:16px;
+  font-size:10px;
+  letter-spacing:.15em;
+  font-weight:900;
+  color:var(--bio-dark);
+}
+
+.heart{
+  width:150px;
+  height:150px;
+  position:absolute;
+  left:50%;
+  top:53%;
+  transform:translate(-50%,-50%);
+}
+
+.heart-shape{
+  fill:#c85f55;
+  opacity:.9;
+}
+
+.ecg{
+  position:absolute;
+  bottom:25px;
+  left:0;
+  width:100%;
+  height:55px;
+}
+
+.ecg path{
+  fill:none;
+  stroke:#7d302c;
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.lab-card{
+  background:#fffaf0;
+  border:1px solid #dfcbb1;
+  border-radius:20px;
+  padding:20px;
+}
+
+.space-theme .lab-card{
+  background:#302d57;
+  border-color:#504b79;
+}
+
+.lab-card h3{
+  margin:0 0 14px;
+  font-size:14px;
+}
+
+.choice-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.choice{
+  border:1px solid #d8c8b3;
+  background:#fffdf7;
+  padding:14px;
+  border-radius:13px;
+  text-align:left;
+  font-weight:700;
+  color:var(--ink);
+  transition:.2s;
+}
+
+.choice:hover{
+  transform:translateY(-2px);
+  border-color:var(--bio);
+}
+
+.choice.selected{
+  background:var(--bio-pale);
+  border:2px solid var(--bio);
+  color:var(--bio-dark);
+}
+
+.physics-theme .choice.selected{
+  background:var(--phy-pale);
+  border-color:var(--phy);
+  color:var(--phy-dark);
+}
+
+.space-theme .choice{
+  background:#272448;
+  color:#eeeaff;
+  border-color:#514c79;
+}
+
+.space-theme .choice.selected{
+  background:#48406e;
+  border-color:var(--space-gold);
+  color:#fff;
+}
+
+.action-row{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:20px;
+}
+
+.primary-btn{
+  border:0;
+  padding:13px 21px;
+  border-radius:13px;
+  font-weight:900;
+  color:white;
+  transition:.2s;
+}
+
+.primary-btn:hover{
+  transform:translateY(-2px);
+}
+
+.bio-btn{background:var(--bio-dark)}
+.phy-btn{background:var(--phy-dark)}
+.space-btn{background:#e4c56d;color:#29264e}
+
+.feedback{
+  margin-top:18px;
+  padding:15px 17px;
+  border-radius:14px;
+  font-weight:700;
+  display:none;
+}
+
+.feedback.show{
+  display:block;
+}
+
+.feedback.correct{
+  background:#e4f1df;
+  color:#315c31;
+}
+
+.feedback.wrong{
+  background:#f8dfd8;
+  color:#813a32;
+}
+
+/* =========================================================
+   EVIDENCE CARDS
+========================================================= */
+
+.evidence-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:22px;
+}
+
+.evidence{
+  background:#fffdf8;
+  border:1px solid #dfcfb9;
+  border-radius:17px;
+  padding:17px;
+  transition:.2s;
+}
+
+.evidence.selected{
+  border:2px solid var(--bio);
+  background:#fff0e9;
+}
+
+.evidence-icon{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:#f4c9bc;
+  color:#7d302c;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.evidence strong{
+  display:block;
+}
+
+.evidence small{
+  color:var(--muted);
+}
+
+/* =========================================================
+   MECHANISM
+========================================================= */
+
+.mechanism{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:25px 0;
+}
+
+.mech-box{
+  padding:16px 19px;
+  border-radius:14px;
+  background:#fff8ee;
+  border:1px solid #dcbda5;
+  font-weight:900;
+  text-align:center;
+}
+
+.mech-arrow{
+  color:var(--bio);
+  font-size:22px;
+  font-weight:900;
+}
+
+/* =========================================================
+   DATA PANEL
+========================================================= */
+
+.data-panel{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin:22px 0;
+}
+
+.data-box{
+  padding:20px;
+  border-radius:17px;
+  background:#fffdf7;
+  border:1px solid #ddccb5;
+}
+
+.data-box .data-title{
+  font-size:10px;
+  letter-spacing:.13em;
+  font-weight:900;
+  color:var(--muted);
+}
+
+.data-number{
+  font-family:"Fraunces",serif;
+  font-size:38px;
+  margin:7px 0;
+}
+
+.data-unit{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* =========================================================
+   PHYSICS LAB
+========================================================= */
+
+.physics-lab{
+  background:#f7fbfd;
+  border:1px solid #b7cfde;
+  border-radius:22px;
+  padding:22px;
+  margin-top:22px;
+  position:relative;
+  overflow:hidden;
+}
+
+.ruler{
+  height:45px;
+  border-top:2px solid #7896aa;
+  border-bottom:1px solid #b5c8d5;
+  margin-top:35px;
+  position:relative;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 9px,
+      #7896aa 9px 10px
+    );
+}
+
+.ruler span{
+  position:absolute;
+  top:-26px;
+  font-size:10px;
+  color:#527089;
+}
+
+.track{
+  height:90px;
+  position:relative;
+  margin:10px 0 0;
+  border-bottom:3px solid var(--phy-dark);
+}
+
+.runner{
+  position:absolute;
+  bottom:8px;
+  left:0;
+  width:52px;
+  height:60px;
+  transition:left 1.4s cubic-bezier(.2,.8,.2,1);
+}
+
+.runner-head{
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:#31546f;
+  position:absolute;
+  top:0;
+  left:17px;
+}
+
+.runner-body{
+  width:7px;
+  height:30px;
+  background:#587c9d;
+  position:absolute;
+  top:17px;
+  left:22px;
+  border-radius:5px;
+}
+
+.runner-leg{
+  position:absolute;
+  width:6px;
+  height:25px;
+  background:#31546f;
+  top:42px;
+  border-radius:4px;
+  transform-origin:top;
+}
+
+.runner-leg.one{
+  left:20px;
+  transform:rotate(25deg);
+}
+
+.runner-leg.two{
+  left:26px;
+  transform:rotate(-30deg);
+}
+
+.runner-arm{
+  position:absolute;
+  width:5px;
+  height:23px;
+  background:#31546f;
+  top:21px;
+  left:22px;
+  transform:rotate(55deg);
+  transform-origin:top;
+}
+
+.measure-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+
+.measure{
+  padding:16px;
+  background:white;
+  border:1px solid #c4d7e3;
+  border-radius:15px;
+}
+
+.measure label{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.1em;
+  color:#607b8e;
+}
+
+.measure strong{
+  display:block;
+  font-size:27px;
+  margin-top:6px;
+}
+
+.predict-input{
+  width:100%;
+  border:1px solid #b6cbd9;
+  border-radius:12px;
+  padding:13px;
+  background:white;
+  margin-top:8px;
+  outline:none;
+}
+
+.predict-input:focus{
+  border:2px solid var(--phy);
+}
+
+.formula{
+  padding:18px;
+  border-radius:16px;
+  background:#e6f0f6;
+  border:1px dashed #7d9bb0;
+  text-align:center;
+  font-family:"Fraunces",serif;
+  font-size:24px;
+  color:#31546f;
+  margin:20px 0;
+}
+
+/* =========================================================
+   SPACE
+========================================================= */
+
+.space-map{
+  min-height:310px;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 20% 30%,white 0 1px,transparent 2px),
+    radial-gradient(circle at 80% 65%,#e4c56d 0 1px,transparent 2px),
+    radial-gradient(circle at 55% 15%,white 0 1px,transparent 2px),
+    radial-gradient(circle at 70% 35%,white 0 1px,transparent 2px),
+    linear-gradient(145deg,#242044,#37315e);
+  background-size:90px 90px,130px 130px,120px 120px,170px 170px,auto;
+  position:relative;
+  overflow:hidden;
+  border:1px solid #5a5487;
+}
+
+.space-map:before{
+  content:"";
+  position:absolute;
+  width:430px;
+  height:180px;
+  border:1px solid rgba(228,197,109,.3);
+  border-radius:50%;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%) rotate(-18deg);
+}
+
+.space-object{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:95px;
+  height:95px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#d9d6ff,#7469a8 60%,#39335e);
+  box-shadow:0 0 45px rgba(170,160,240,.45);
+}
+
+.space-object:after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:38px;
+  border:2px solid rgba(228,197,109,.65);
+  border-radius:50%;
+  left:-28px;
+  top:30px;
+  transform:rotate(-18deg);
+}
+
+.signal{
+  position:absolute;
+  right:15%;
+  top:35%;
+  width:100px;
+  height:55px;
+}
+
+.signal path{
+  fill:none;
+  stroke:#e4c56d;
+  stroke-width:2;
+  stroke-dasharray:7 7;
+  animation:signalMove 2s linear infinite;
+}
+
+@keyframes signalMove{
+  to{stroke-dashoffset:-28}
+}
+
+.star-label{
+  position:absolute;
+  left:20px;
+  top:18px;
+  font-size:10px;
+  letter-spacing:.15em;
+  font-weight:900;
+  color:#c9c5df;
+}
+
+.space-clues{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:20px;
+}
+
+.space-clue{
+  padding:18px;
+  background:#29264c;
+  border:1px solid #4e4977;
+  border-radius:16px;
+  color:#f2efff;
+}
+
+.space-clue strong{
+  display:block;
+  color:#e4c56d;
+  margin-bottom:5px;
+}
+
+.space-clue small{
+  color:#aaa6c7;
+}
+
+/* =========================================================
+   ORDERING
+========================================================= */
+
+.order-list{
+  display:grid;
+  gap:10px;
+  margin-top:20px;
+}
+
+.order-item{
+  padding:15px 18px;
+  border:1px solid #d9cbb8;
+  background:#fffdf8;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+}
+
+.order-item .order-num{
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#ead9c3;
+  font-weight:900;
+}
+
+.order-item.selected{
+  border-color:var(--bio);
+  background:#fff0e9;
+}
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final-panel{
+  text-align:center;
+  padding:45px 30px;
+}
+
+.final-symbol{
+  width:90px;
+  height:90px;
+  margin:auto;
+  border-radius:28px;
+  display:grid;
+  place-items:center;
+  background:var(--bio-light);
+  color:var(--bio-dark);
+}
+
+.final-panel h2{
+  font-family:"Fraunces",serif;
+  font-size:42px;
+  margin:20px 0 10px;
+}
+
+.score{
+  font-size:58px;
+  font-family:"Fraunces",serif;
+  color:var(--bio-dark);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:800px){
+
+  .challenge-grid{
+    grid-template-columns:1fr;
+  }
+
+  .bio-lab,
+  .data-panel{
+    grid-template-columns:1fr;
+  }
+
+  .evidence-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .game-title-row{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+
+@media(max-width:560px){
+
+  .container{
+    width:94%;
+  }
+
+  .hero{
+    padding-top:35px;
+  }
+
+  .hero h1{
+    font-size:55px;
+  }
+
+  .stage-body{
+    padding:20px;
+  }
+
+  .stage-top{
+    padding:18px;
+  }
+
+  .choice-grid,
+  .space-clues,
+  .measure-grid,
+  .evidence-grid{
+    grid-template-columns:1fr;
+  }
+
+  .mechanism{
+    flex-direction:column;
+  }
+
+  .mech-arrow{
+    transform:rotate(90deg);
+  }
+
+  .action-row{
+    justify-content:stretch;
+  }
+
+  .action-row button{
+    flex:1;
+  }
+}
+
+
+/* =========================================================
+   V6 COLORFUL + FRIENDLY SCIENCE UI
+========================================================= */
+.game{
+  background:
+    radial-gradient(circle at 8% 8%, rgba(245,198,184,.55), transparent 25%),
+    radial-gradient(circle at 92% 12%, rgba(169,161,213,.48), transparent 25%),
+    radial-gradient(circle at 80% 88%, rgba(191,211,225,.45), transparent 28%),
+    linear-gradient(135deg,#fff8ec 0%,#f8f0df 48%,#f3eadb 100%);
+}
+.game:before,
+.game:after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  border-radius:50%;
+  filter:blur(2px);
+  opacity:.55;
+}
+.game:before{width:230px;height:230px;background:#f6c8b9;left:-90px;top:28%;}
+.game:after{width:260px;height:260px;background:#c9c2ea;right:-110px;bottom:12%;}
+
+.game .stage-panel{
+  position:relative;
+  border:1px solid rgba(120,92,70,.16);
+  background:rgba(255,252,245,.94);
+  backdrop-filter:blur(8px);
+}
+
+.game .stage-panel:after{
+  content:"✦  SCIENCE LAB  ✦";
+  position:absolute;
+  right:22px;
+  top:18px;
+  font-size:9px;
+  letter-spacing:.16em;
+  font-weight:900;
+  opacity:.45;
+}
+
+.stage-top{
+  background:linear-gradient(90deg,rgba(255,255,255,.78),rgba(255,248,235,.58));
+}
+
+.stage-num{
+  box-shadow:0 7px 16px rgba(80,55,35,.12);
+}
+
+.stage-body h2{
+  letter-spacing:-.02em;
+}
+
+.stage-body > p{
+  font-size:15px;
+}
+
+/* Color-coded process / mechanism boxes */
+.mechanism{
+  padding:20px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#fff9ee,#f8efe2);
+  border:1px solid #ead7bc;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 25px rgba(90,65,40,.08);
+}
+.mech-box{
+  min-width:125px;
+  color:#332d29;
+  background:linear-gradient(145deg,#fff4df,#f5d5b8);
+  border:2px solid #d58b68;
+  box-shadow:0 8px 18px rgba(120,70,40,.12);
+  line-height:1.25;
+}
+.mech-box small{color:#6c5548;font-weight:700;}
+.mech-arrow{color:#b24f46;text-shadow:0 2px 8px rgba(178,79,70,.2);}
+
+/* Astronomy: high contrast, colorful process cards */
+.space-theme .mechanism{
+  background:linear-gradient(135deg,#242044,#35305f 55%,#40376b);
+  border:1px solid rgba(228,197,109,.35);
+  box-shadow:0 15px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.space-theme .mech-box{
+  color:#fffdf3;
+  background:linear-gradient(145deg,#50467f,#3c3568);
+  border:2px solid #e4c56d;
+  box-shadow:0 9px 20px rgba(0,0,0,.25),0 0 18px rgba(228,197,109,.08);
+}
+.space-theme .mech-box small{color:#e7ddad;}
+.space-theme .mech-arrow{color:#f5d96f;text-shadow:0 0 12px rgba(228,197,109,.35);}
+
+.space-theme .stage-body h2{color:#fffdf4;}
+.space-theme .stage-body > p{color:#e5e1f5;}
+.space-theme .stage-top{
+  background:linear-gradient(90deg,#312c59,#3b3568);
+  border-bottom-color:rgba(228,197,109,.18);
+}
+.space-theme .stage-label strong{color:#fffdf4;}
+.space-theme .stage-label span{color:#d7d2ea;}
+
+.space-theme .choice-grid{gap:13px;}
+.space-theme .choice{
+  background:linear-gradient(145deg,#2e2a55,#383263);
+  border:1px solid #625a8d;
+  color:#f8f5ff;
+  box-shadow:0 7px 16px rgba(0,0,0,.15);
+}
+.space-theme .choice:hover{
+  border-color:#e4c56d;
+  background:linear-gradient(145deg,#3d376b,#4a4278);
+  transform:translateY(-3px) scale(1.01);
+}
+.space-theme .choice.selected{color:#fff;}
+
+.space-theme .data-panel .data-box{
+  background:linear-gradient(145deg,#393365,#29264c);
+  border:1px solid #615a8c;
+  color:#fff;
+  box-shadow:0 10px 22px rgba(0,0,0,.18);
+}
+.space-theme .data-box .data-title{color:#e4c56d;}
+.space-theme .data-number{color:#fff7c8;}
+.space-theme .data-unit{color:#d1cce5;}
+
+/* Make astronomy observatory area richer */
+.space-map{
+  box-shadow:0 14px 32px rgba(32,27,70,.22),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.space-clue{
+  transition:.2s ease;
+}
+.space-clue:hover{
+  transform:translateY(-3px);
+  border-color:#e4c56d;
+  box-shadow:0 10px 22px rgba(0,0,0,.18);
+}
+
+/* Colorful cards across all subjects */
+.bio-theme .stage-panel{box-shadow:0 18px 45px rgba(153,74,58,.13);}
+.physics-theme .stage-panel{box-shadow:0 18px 45px rgba(55,91,120,.13);}
+.space-theme .stage-panel{box-shadow:0 20px 55px rgba(25,22,58,.28);}
+
+.bio-theme .stage-body h2{color:#7d302c;}
+.physics-theme .stage-body h2{color:#31546f;}
+
+.physics-theme .mechanism .mech-box{
+  background:linear-gradient(145deg,#edf7fb,#cfe2ee);
+  border-color:#7d9fb8;
+  color:#23455d;
+}
+.physics-theme .mechanism .mech-box small{color:#557187;}
+.physics-theme .mechanism .mech-arrow{color:#477997;}
+
+/* Friendlier buttons */
+.primary-btn,
+.play-btn,
+.back-btn{
+  transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
+}
+.primary-btn:hover,.play-btn:hover,.back-btn:hover{
+  box-shadow:0 9px 20px rgba(60,45,30,.14);
+  filter:saturate(1.08);
+}
+
+
+
+/* =========================================================
+   V7 — HIGH CONTRAST + FRIENDLIER VISUALS
+========================================================= */
+
+/* Physics answer inputs: always readable */
+.physics-theme .predict-input,
+.predict-input{
+  background:#ffffff !important;
+  color:#183246 !important;
+  -webkit-text-fill-color:#183246 !important;
+  caret-color:#183246 !important;
+  border:2px solid #9db9ca !important;
+  box-shadow:0 6px 16px rgba(49,84,111,.08);
+}
+
+.physics-theme .predict-input::placeholder,
+.predict-input::placeholder{
+  color:#6f8796 !important;
+  opacity:1 !important;
+  -webkit-text-fill-color:#6f8796 !important;
+}
+
+.physics-theme .predict-input:focus,
+.predict-input:focus{
+  background:#ffffff !important;
+  color:#183246 !important;
+  -webkit-text-fill-color:#183246 !important;
+  border-color:#4f7897 !important;
+  box-shadow:0 0 0 4px rgba(88,124,157,.16),0 8px 20px rgba(49,84,111,.10);
+}
+
+/* Astronomy: light content area, dark readable typography */
+.space-theme .stage-body{
+  background:linear-gradient(180deg,#fffaf2 0%,#f7f0e7 100%);
+}
+
+.space-theme .stage-body h2{
+  color:#29264e !important;
+  text-shadow:none !important;
+}
+
+.space-theme .stage-body > p{
+  color:#514b67 !important;
+}
+
+/* Astronomy content gets playful color accents */
+.space-theme .stage-body h2::after{
+  content:"✦";
+  display:inline-block;
+  margin-left:10px;
+  color:#c69b32;
+  font-family:"DM Sans",sans-serif;
+  font-size:.55em;
+  vertical-align:middle;
+}
+
+.space-theme .mechanism{
+  position:relative;
+  overflow:hidden;
+}
+
+.space-theme .mechanism::before{
+  content:"✦  COSMIC SIGNAL  ✦";
+  position:absolute;
+  top:10px;
+  right:18px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.16em;
+  color:#d9c56e;
+  opacity:.75;
+}
+
+.space-theme .choice{
+  color:#302b55 !important;
+  background:linear-gradient(145deg,#ffffff,#f3efff) !important;
+  border:2px solid #aaa1d2 !important;
+  box-shadow:0 8px 18px rgba(48,43,85,.10);
+}
+
+.space-theme .choice:hover{
+  color:#29264e !important;
+  background:linear-gradient(145deg,#fffdf7,#eee9ff) !important;
+  border-color:#d0a83e !important;
+  box-shadow:0 10px 22px rgba(70,58,110,.16);
+}
+
+.space-theme .choice.selected{
+  color:#29264e !important;
+  background:#eee8ff !important;
+  border-color:#d0a83e !important;
+}
+
+/* Data cards remain dark so the numbers pop */
+.space-theme .data-panel .data-box{
+  color:#fff !important;
+}
+
+/* Final astronomy screen: never use white text on cream */
+.space-theme #final-stage .stage-panel{
+  background:linear-gradient(145deg,#fffaf2,#f3eadf) !important;
+  color:#29264e !important;
+}
+
+.space-theme #final-stage .final-panel h2{
+  color:#29264e !important;
+}
+
+.space-theme #final-stage .final-panel p{
+  color:#5a536d !important;
+}
+
+.space-theme #final-stage .score{
+  color:#7d302c !important;
+}
+
+.space-theme #final-stage .final-symbol{
+  background:#f5c6b8 !important;
+  color:#7d302c !important;
+}
+
+/* Slightly more colorful stage surfaces */
+.space-theme .stage-panel{
+  border:2px solid rgba(228,197,109,.35);
+}
+
+.physics-theme .stage-panel{
+  border-color:rgba(88,124,157,.28);
+}
+
+.physics-theme .physics-lab{
+  background:linear-gradient(145deg,#f8fcff,#eaf3f8);
+  border:1px solid #c8dbe6;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 12px 28px rgba(49,84,111,.08);
+}
+
+.physics-theme .formula{
+  background:linear-gradient(145deg,#eaf5fb,#d8e9f2);
+  color:#244d68;
+  border-color:#82a6bb;
+}
+
+@media(max-width:800px){
+  .physics-theme .physics-lab{padding:16px;}
+  .space-theme .stage-body{padding:24px 20px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="screen home">
+
+  <svg class="decor decor-dna" viewBox="0 0 200 500">
+    <path d="M40 0 C150 70 150 150 40 230 C-20 275 -20 360 150 500"/>
+    <path d="M150 0 C40 70 40 150 150 230 C210 275 210 360 40 500"/>
+    <line x1="60" y1="40" x2="140" y2="40"/>
+    <line x1="75" y1="85" x2="125" y2="85"/>
+    <line x1="100" y1="130" x2="100" y2="130"/>
+    <line x1="75" y1="175" x2="125" y2="175"/>
+    <line x1="60" y1="220" x2="140" y2="220"/>
+  </svg>
+
+  <div class="container">
+
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">SL</div>
+        <div class="brand-text">
+          <small>SCIENCE DISCOVERY GAME</small>
+          <strong>SAINSLOKA</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero">
+
+      <div class="eyebrow">
+        PLAY · EXPLORE · DISCOVER
+      </div>
+
+      <h1>
+        Science,<br>
+        but make it <span>play.</span>
+      </h1>
+
+      <p>
+        Masuk ke tiga dunia sains dan pecahkan tantangan melalui
+        observasi, eksperimen, bukti, dan penalaran.
+      </p>
+
+      <p class="tagline">
+        Pilih misi untuk memulai eksplorasi.
+      </p>
+
+    </div>
+
+    <div class="challenge-grid">
+
+      <!-- BIO -->
+      <div class="challenge-card bio">
+
+        <div class="card-number">MISSION 01 · BIOMEDIS</div>
+
+        <h2>Body<br>Detective</h2>
+
+        <p>
+          Selidiki perubahan tubuh setelah aktivitas
+          dan temukan mekanisme di baliknya.
+        </p>
+
+        <svg class="card-illustration" viewBox="0 0 150 150">
+
+          <path
+            d="M75 128
+               C52 112 27 91 27 59
+               C27 35 55 28 75 49
+               C95 28 123 35 123 59
+               C123 91 98 112 75 128Z"
+            fill="#c85f55"
+            opacity=".9"/>
+
+          <path
+            d="M75 47
+               C63 65 68 79 75 91
+               C82 79 87 65 75 47"
+            fill="#f5c6b8"/>
+
+          <path
+            d="M18 109 L43 109 L51 98 L59 118 L67 101 L77 109 L100 109"
+            fill="none"
+            stroke="#7d302c"
+            stroke-width="3"/>
+        </svg>
+
+        <button class="play-btn" onclick="startGame('bio')">
+          START MISSION →
+        </button>
+
+      </div>
+
+      <!-- PHYSICS -->
+      <div class="challenge-card physics">
+
+        <div class="card-number">MISSION 02 · FISIKA</div>
+
+        <h2>Physics<br>Lab</h2>
+
+        <p>
+          Buat prediksi, jalankan eksperimen,
+          lalu temukan hubungan antara kecepatan dan waktu.
+        </p>
+
+        <svg class="card-illustration" viewBox="0 0 150 150">
+
+          <line
+            x1="15" y1="110"
+            x2="135" y2="110"
+            stroke="#31546f"
+            stroke-width="4"/>
+
+          <circle cx="38" cy="93" r="12"
+                  fill="#587c9d"/>
+
+          <path
+            d="M38 81 L47 63 L61 48"
+            fill="none"
+            stroke="#31546f"
+            stroke-width="6"
+            stroke-linecap="round"/>
+
+          <path
+            d="M61 48 L91 48"
+            stroke="#587c9d"
+            stroke-width="5"/>
+
+          <path
+            d="M72 38 L91 48 L72 58"
+            fill="none"
+            stroke="#31546f"
+            stroke-width="4"/>
+
+          <line
+            x1="20" y1="122"
+            x2="125" y2="122"
+            stroke="#8aa7ba"
+            stroke-width="2"
+            stroke-dasharray="5 5"/>
+        </svg>
+
+        <button class="play-btn" onclick="startGame('physics')">
+          START MISSION →
+        </button>
+
+      </div>
+
+      <!-- SPACE -->
+      <div class="challenge-card space">
+
+        <div class="card-number">MISSION 03 · ASTRONOMI</div>
+
+        <h2>Space<br>Detective</h2>
+
+        <p>
+          Gunakan cahaya sebagai petunjuk untuk
+          menyelidiki masa lalu objek jauh di luar angkasa.
+        </p>
+
+        <svg class="card-illustration" viewBox="0 0 150 150">
+
+          <circle cx="76" cy="74" r="32"
+                  fill="#8c83c2"/>
+
+          <ellipse
+            cx="76" cy="74"
+            rx="58" ry="18"
+            fill="none"
+            stroke="#e4c56d"
+            stroke-width="4"
+            transform="rotate(-20 76 74)"/>
+
+          <circle cx="25" cy="35" r="2" fill="#fff"/>
+          <circle cx="120" cy="35" r="3" fill="#e4c56d"/>
+          <circle cx="126" cy="105" r="2" fill="#fff"/>
+          <circle cx="31" cy="112" r="2" fill="#fff"/>
+        </svg>
+
+        <button class="play-btn" onclick="startGame('space')">
+          START MISSION →
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     GAME SCREEN
+===================================================== -->
+
+<section id="game" class="screen game hidden">
+
+  <div class="decor decor-grid"></div>
+  <div class="decor decor-orbit"></div>
+
+  <div class="container">
+
+    <div class="topbar">
+
+      <div class="brand">
+        <div class="brand-mark">SL</div>
+        <div class="brand-text">
+          <small>SCIENCE DISCOVERY GAME</small>
+          <strong>SAINSLOKA</strong>
+        </div>
+      </div>
+
+      <button class="back-btn" onclick="goHome()">
+        ← Missions
+      </button>
+
+    </div>
+
+    <div class="game-head">
+
+      <div class="game-title-row">
+
+        <div>
+          <div id="game-eyebrow" class="eyebrow">
+            MISSION
+          </div>
+
+          <h1 id="game-title">
+            Body Detective
+          </h1>
+
+          <p id="game-description">
+            Investigate the body's response to activity.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="progress-wrap">
+
+        <div class="progress-meta">
+          <span id="progress-stage">STAGE 1 / 5</span>
+          <span id="progress-percent">20%</span>
+        </div>
+
+        <div class="progress">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= BIO GAME ================= -->
+
+    <div id="bio-game" class="stage hidden">
+
+      <!-- BIO STAGE 1 -->
+      <div id="bio-stage-1" class="stage-panel">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">01</div>
+
+            <div>
+              <strong>OBSERVE</strong>
+              <span>Identify the body's signals</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>What changed after running?</h2>
+
+          <p>
+            Pilih <strong>3 observasi</strong> yang paling relevan
+            dengan kondisi tubuh setelah aktivitas fisik.
+          </p>
+
+          <div class="bio-lab">
+
+            <div class="medical-display">
+
+              <div class="label">
+                BODY MONITOR · POST ACTIVITY
+              </div>
+
+              <svg class="heart" viewBox="0 0 150 150">
+
+                <path class="heart-shape"
+                  d="M75 125
+                  C52 108 24 87 24 54
+                  C24 31 52 23 75 46
+                  C98 23 126 31 126 54
+                  C126 87 98 108 75 125Z"/>
+
+              </svg>
+
+              <svg class="ecg" viewBox="0 0 500 70">
+                <path d="
+                  M0 42
+                  L75 42
+                  L95 42
+                  L110 15
+                  L128 58
+                  L145 30
+                  L160 42
+                  L230 42
+                  L245 42
+                  L260 15
+                  L278 58
+                  L295 30
+                  L310 42
+                  L500 42"/>
+              </svg>
+
+            </div>
+
+            <div class="lab-card">
+
+              <h3>SELECT EVIDENCE</h3>
+
+              <div class="choice-grid">
+
+                <button class="choice bio-observation"
+                  onclick="selectObservation(this,'heart')">
+                  Heart Rate ↑
+                </button>
+
+                <button class="choice bio-observation"
+                  onclick="selectObservation(this,'breathing')">
+                  Breathing ↑
+                </button>
+
+                <button class="choice bio-observation"
+                  onclick="selectObservation(this,'blood')">
+                  Blood Flow ↑
+                </button>
+
+                <button class="choice bio-observation"
+                  onclick="selectObservation(this,'digestion')">
+                  Digestion ↑
+                </button>
+
+                <button class="choice bio-observation"
+                  onclick="selectObservation(this,'sleep')">
+                  Sleepiness ↑
+                </button>
+
+                <button class="choice bio-observation"
+                  onclick="selectObservation(this,'memory')">
+                  Memory ↑
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="action-row">
+
+            <button class="primary-btn bio-btn"
+              onclick="checkObservations()">
+              ANALYZE OBSERVATIONS →
+            </button>
+
+          </div>
+
+          <div id="bio-feedback-1" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BIO STAGE 2 -->
+      <div id="bio-stage-2" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">02</div>
+
+            <div>
+              <strong>CONNECT</strong>
+              <span>Build the biological mechanism</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Which clues explain the changes?</h2>
+
+          <p>
+            Pilih <strong>3 evidence</strong> yang menghubungkan
+            aktivitas fisik dengan kebutuhan tubuh.
+          </p>
+
+          <div class="evidence-grid">
+
+            <div class="evidence"
+              onclick="toggleBodyClue(this,'oxygen')">
+              <div class="evidence-icon">O₂</div>
+              <strong>OXYGEN</strong>
+              <small>needed by active cells</small>
+            </div>
+
+            <div class="evidence"
+              onclick="toggleBodyClue(this,'energy')">
+              <div class="evidence-icon">E</div>
+              <strong>ENERGY</strong>
+              <small>required for muscle activity</small>
+            </div>
+
+            <div class="evidence"
+              onclick="toggleBodyClue(this,'blood')">
+              <div class="evidence-icon">B</div>
+              <strong>BLOOD</strong>
+              <small>transports substances</small>
+            </div>
+
+            <div class="evidence"
+              onclick="toggleBodyClue(this,'digestion')">
+              <div class="evidence-icon">D</div>
+              <strong>DIGESTION</strong>
+              <small>food processing system</small>
+            </div>
+
+            <div class="evidence"
+              onclick="toggleBodyClue(this,'sleep')">
+              <div class="evidence-icon">S</div>
+              <strong>SLEEP</strong>
+              <small>rest and recovery</small>
+            </div>
+
+          </div>
+
+          <div class="action-row">
+
+            <button class="primary-btn bio-btn"
+              onclick="checkBodyClues()">
+              CONNECT EVIDENCE →
+            </button>
+
+          </div>
+
+          <div id="bio-feedback-2" class="feedback"></div>
+
+          <div id="body-mechanism" class="hidden">
+
+            <div class="mechanism">
+
+              <div class="mech-box">LUNGS</div>
+              <div class="mech-arrow">→</div>
+
+              <div class="mech-box">OXYGEN<br>IN BLOOD</div>
+              <div class="mech-arrow">→</div>
+
+              <div class="mech-box">HEART<br>PUMPS BLOOD</div>
+              <div class="mech-arrow">→</div>
+
+              <div class="mech-box">MUSCLES<br>USE OXYGEN</div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BIO STAGE 3 -->
+      <div id="bio-stage-3" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">03</div>
+
+            <div>
+              <strong>INVESTIGATE</strong>
+              <span>Compare physiological data</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Read the body data.</h2>
+
+          <p>
+            Bandingkan kondisi sebelum dan sesudah berlari.
+            Apa yang paling masuk akal?
+          </p>
+
+          <div class="data-panel">
+
+            <div class="data-box">
+
+              <div class="data-title">
+                BEFORE RUNNING
+              </div>
+
+              <div class="data-number">
+                72
+              </div>
+
+              <div class="data-unit">
+                heart beats / minute
+              </div>
+
+              <hr>
+
+              <div class="data-number">
+                14
+              </div>
+
+              <div class="data-unit">
+                breaths / minute
+              </div>
+
+            </div>
+
+            <div class="data-box">
+
+              <div class="data-title">
+                AFTER RUNNING
+              </div>
+
+              <div class="data-number">
+                128
+              </div>
+
+              <div class="data-unit">
+                heart beats / minute
+              </div>
+
+              <hr>
+
+              <div class="data-number">
+                28
+              </div>
+
+              <div class="data-unit">
+                breaths / minute
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="choice-grid">
+
+            <button class="choice"
+              onclick="answerBodyInvestigation(this,false)">
+              The body needs less oxygen.
+            </button>
+
+            <button class="choice"
+              onclick="answerBodyInvestigation(this,true)">
+              The body's oxygen demand increased.
+            </button>
+
+            <button class="choice"
+              onclick="answerBodyInvestigation(this,false)">
+              Digestion became the main priority.
+            </button>
+
+            <button class="choice"
+              onclick="answerBodyInvestigation(this,false)">
+              The heart stopped working normally.
+            </button>
+
+          </div>
+
+          <div id="bio-feedback-3" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BIO STAGE 4 -->
+      <div id="bio-stage-4" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">04</div>
+
+            <div>
+              <strong>BUILD EXPLANATION</strong>
+              <span>Connect cause and effect</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Build the mechanism.</h2>
+
+          <p>
+            Klik urutan yang benar dari perubahan aktivitas
+            sampai perubahan pernapasan.
+          </p>
+
+          <div class="order-list" id="body-order">
+
+            <div class="order-item"
+              onclick="selectExplanation(this,'oxygen')">
+              <div class="order-num">?</div>
+              OXYGEN DEMAND ↑
+            </div>
+
+            <div class="order-item"
+              onclick="selectExplanation(this,'heart')">
+              <div class="order-num">?</div>
+              HEART RATE ↑
+            </div>
+
+            <div class="order-item"
+              onclick="selectExplanation(this,'activity')">
+              <div class="order-num">?</div>
+              BODY ACTIVITY ↑
+            </div>
+
+            <div class="order-item"
+              onclick="selectExplanation(this,'energy')">
+              <div class="order-num">?</div>
+              ENERGY DEMAND ↑
+            </div>
+
+            <div class="order-item"
+              onclick="selectExplanation(this,'breathing')">
+              <div class="order-num">?</div>
+              BREATHING ↑
+            </div>
+
+          </div>
+
+          <div class="action-row">
+
+            <button class="primary-btn bio-btn"
+              onclick="checkBodyExplanation()">
+              VERIFY MECHANISM →
+            </button>
+
+          </div>
+
+          <div id="bio-feedback-4" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BIO STAGE 5 -->
+      <div id="bio-stage-5" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">05</div>
+
+            <div>
+              <strong>SOLVE CASE</strong>
+              <span>Final diagnosis</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Case file: solved?</h2>
+
+          <p>
+            Berdasarkan seluruh evidence, pilih penjelasan
+            terbaik untuk perubahan tubuh.
+          </p>
+
+          <div class="choice-grid">
+
+            <button class="choice"
+              onclick="solveBodyCase(this,true)">
+              Body needs more oxygen and energy, so respiratory
+              and circulatory activity increases.
+            </button>
+
+            <button class="choice"
+              onclick="solveBodyCase(this,false)">
+              The body increases heart rate because digestion
+              suddenly becomes faster.
+            </button>
+
+            <button class="choice"
+              onclick="solveBodyCase(this,false)">
+              Breathing increases because the brain stops
+              controlling the body.
+            </button>
+
+          </div>
+
+          <div id="bio-feedback-5" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= PHYSICS GAME ================= -->
+
+    <div id="physics-game" class="stage hidden">
+
+      <!-- PHYSICS STAGE 1 -->
+      <div id="physics-stage-1" class="stage-panel">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">01</div>
+
+            <div>
+              <strong>OBSERVE</strong>
+              <span>Set up the experiment</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>The runner experiment.</h2>
+
+          <p>
+            Kita ingin mengetahui bagaimana kecepatan memengaruhi
+            waktu tempuh pada jarak yang sama.
+          </p>
+
+          <div class="physics-lab">
+
+            <div class="ruler">
+              <span style="left:0">0 m</span>
+              <span style="left:48%">15 m</span>
+              <span style="right:0">30 m</span>
+            </div>
+
+            <div class="track">
+
+              <div class="runner" id="runner-1">
+
+                <div class="runner-head"></div>
+                <div class="runner-body"></div>
+                <div class="runner-leg one"></div>
+                <div class="runner-leg two"></div>
+                <div class="runner-arm"></div>
+
+              </div>
+
+            </div>
+
+            <div class="measure-grid">
+
+              <div class="measure">
+                <label>DISTANCE</label>
+                <strong>30 m</strong>
+              </div>
+
+              <div class="measure">
+                <label>SPEED</label>
+                <strong>5 m/s</strong>
+              </div>
+
+              <div class="measure">
+                <label>TIME</label>
+                <strong>?</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="action-row">
+
+            <button class="primary-btn phy-btn"
+              onclick="goPhysicsStage(2)">
+              SET PREDICTION →
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PHYSICS STAGE 2 -->
+      <div id="physics-stage-2" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">02</div>
+
+            <div>
+              <strong>PREDICT</strong>
+              <span>Make your hypothesis</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>How long will it take?</h2>
+
+          <p>
+            Sebelum eksperimen berjalan, masukkan prediksi
+            waktu yang dibutuhkan untuk menempuh 30 meter.
+          </p>
+
+          <div class="physics-lab">
+
+            <div class="formula">
+              time = distance ÷ speed
+            </div>
+
+            <label>
+              Your prediction
+            </label>
+
+            <input
+              id="physics-prediction"
+              class="predict-input"
+              type="number"
+              placeholder="contoh: 6"
+              step="0.1">
+
+          </div>
+
+          <div class="action-row">
+
+            <button class="primary-btn phy-btn"
+              onclick="runExperiment()">
+              RUN EXPERIMENT →
+            </button>
+
+          </div>
+
+          <div id="physics-feedback-2" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PHYSICS STAGE 3 -->
+      <div id="physics-stage-3" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">03</div>
+
+            <div>
+              <strong>EXPERIMENT 01</strong>
+              <span>Observe the result</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Experiment complete.</h2>
+
+          <p>
+            Runner bergerak sejauh 30 meter dengan kecepatan 5 m/s.
+          </p>
+
+          <div class="physics-lab">
+
+            <div class="track">
+
+              <div class="runner" id="runner-result">
+
+                <div class="runner-head"></div>
+                <div class="runner-body"></div>
+                <div class="runner-leg one"></div>
+                <div class="runner-leg two"></div>
+                <div class="runner-arm"></div>
+
+              </div>
+
+            </div>
+
+            <div class="measure-grid">
+
+              <div class="measure">
+                <label>PREDICTION</label>
+                <strong id="prediction-result">—</strong>
+              </div>
+
+              <div class="measure">
+                <label>ACTUAL TIME</label>
+                <strong>6 s</strong>
+              </div>
+
+              <div class="measure">
+                <label>DISTANCE</label>
+                <strong>30 m</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="action-row">
+
+            <button class="primary-btn phy-btn"
+              onclick="prepareExperiment2()">
+              CHANGE SPEED →
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PHYSICS STAGE 4 -->
+      <div id="physics-stage-4" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">04</div>
+
+            <div>
+              <strong>EXPERIMENT 02</strong>
+              <span>Change one variable</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Same distance. Faster runner.</h2>
+
+          <p>
+            Jarak tetap 30 m. Sekarang kecepatan menjadi
+            <strong>10 m/s</strong>.
+          </p>
+
+          <div class="physics-lab">
+
+            <div class="formula">
+              30 m ÷ 10 m/s = ?
+            </div>
+
+            <input
+              id="experiment-2-input"
+              class="predict-input"
+              type="number"
+              placeholder="Predicted time"
+              step="0.1">
+
+          </div>
+
+          <div class="action-row">
+
+            <button class="primary-btn phy-btn"
+              onclick="updateExperiment2()">
+              RUN SECOND EXPERIMENT →
+            </button>
+
+          </div>
+
+          <div id="physics-feedback-4" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PHYSICS STAGE 5 -->
+      <div id="physics-stage-5" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">05</div>
+
+            <div>
+              <strong>DISCOVER</strong>
+              <span>Find the relationship</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>What did the experiments reveal?</h2>
+
+          <div class="data-panel">
+
+            <div class="data-box">
+
+              <div class="data-title">EXPERIMENT 01</div>
+
+              <div class="data-number">5 m/s</div>
+
+              <div class="data-unit">
+                30 m → 6 seconds
+              </div>
+
+            </div>
+
+            <div class="data-box">
+
+              <div class="data-title">EXPERIMENT 02</div>
+
+              <div class="data-number">10 m/s</div>
+
+              <div class="data-unit">
+                30 m → 3 seconds
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="choice-grid">
+
+            <button class="choice"
+              onclick="goPhysicsFinal(this,false)">
+              Speed increases → time increases.
+            </button>
+
+            <button class="choice"
+              onclick="goPhysicsFinal(this,true)">
+              Speed increases → time decreases
+              for the same distance.
+            </button>
+
+            <button class="choice"
+              onclick="goPhysicsFinal(this,false)">
+              Speed has no relationship with time.
+            </button>
+
+          </div>
+
+          <div id="physics-feedback-5" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PHYSICS STAGE 6 -->
+      <div id="physics-stage-6" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">06</div>
+
+            <div>
+              <strong>FINAL CHALLENGE</strong>
+              <span>Apply the discovery</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Final physics challenge.</h2>
+
+          <p>
+            Jarak yang sama: <strong>30 m</strong>.
+            Runner A bergerak 5 m/s, Runner B 10 m/s.
+            Siapa yang sampai lebih cepat?
+          </p>
+
+          <div class="choice-grid">
+
+            <button class="choice"
+              onclick="answerPhysicsFinal(this,false)">
+              Runner A
+            </button>
+
+            <button class="choice"
+              onclick="answerPhysicsFinal(this,true)">
+              Runner B
+            </button>
+
+          </div>
+
+          <div id="physics-feedback-6" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= SPACE GAME ================= -->
+
+    <div id="space-game" class="stage hidden">
+
+      <!-- SPACE STAGE 1 -->
+      <div id="space-stage-1" class="stage-panel">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">01</div>
+
+            <div>
+              <strong>OBSERVE</strong>
+              <span>Identify the signal</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Object #07 detected.</h2>
+
+          <p>
+            Sebuah objek terdeteksi pada jarak
+            <strong>5 light-years</strong>.
+          </p>
+
+          <div class="space-map">
+
+            <div class="star-label">
+              DEEP SPACE OBSERVATORY · SIGNAL LOCKED
+            </div>
+
+            <div class="space-object"></div>
+
+            <svg class="signal" viewBox="0 0 100 55">
+              <path d="M0 28 Q12 5 25 28 T50 28 T75 28 T100 28"/>
+            </svg>
+
+          </div>
+
+          <div class="space-clues">
+
+            <div class="space-clue">
+              <strong>DISTANCE</strong>
+              <small>5 light-years</small>
+            </div>
+
+            <div class="space-clue">
+              <strong>COLOR</strong>
+              <small>Blue</small>
+            </div>
+
+            <div class="space-clue">
+              <strong>BRIGHTNESS</strong>
+              <small>Very high</small>
+            </div>
+
+            <div class="space-clue">
+              <strong>QUESTION</strong>
+              <small>When did this light leave?</small>
+            </div>
+
+          </div>
+
+          <div class="action-row">
+
+            <button class="primary-btn space-btn"
+              onclick="goSpaceStage(2)">
+              CONNECT CLUES →
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SPACE STAGE 2 -->
+      <div id="space-stage-2" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">02</div>
+
+            <div>
+              <strong>CONNECT CLUES</strong>
+              <span>Understand the light signal</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Light takes time to travel.</h2>
+
+          <p>
+            Jika objek berjarak 5 light-years,
+            cahaya membutuhkan 5 tahun untuk mencapai kita.
+          </p>
+
+          <div class="mechanism">
+
+            <div class="mech-box">
+              OBJECT<br>
+              <small>5 ly away</small>
+            </div>
+
+            <div class="mech-arrow">→</div>
+
+            <div class="mech-box">
+              LIGHT<br>
+              <small>travels 5 years</small>
+            </div>
+
+            <div class="mech-arrow">→</div>
+
+            <div class="mech-box">
+              EARTH<br>
+              <small>sees the signal</small>
+            </div>
+
+          </div>
+
+          <div class="choice-grid">
+
+            <button class="choice"
+              onclick="answerSpaceClue(this,false)">
+              We see the object exactly as it is now.
+            </button>
+
+            <button class="choice"
+              onclick="answerSpaceClue(this,true)">
+              We see the object as it was
+              5 years ago.
+            </button>
+
+            <button class="choice"
+              onclick="answerSpaceClue(this,false)">
+              Light arrives before it leaves the object.
+            </button>
+
+          </div>
+
+          <div id="space-feedback-2" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SPACE STAGE 3 -->
+      <div id="space-stage-3" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">03</div>
+
+            <div>
+              <strong>INVESTIGATE</strong>
+              <span>Compare two objects</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Which object shows an older state?</h2>
+
+          <div class="data-panel">
+
+            <div class="data-box">
+
+              <div class="data-title">
+                OBJECT A
+              </div>
+
+              <div class="data-number">
+                2 ly
+              </div>
+
+              <div class="data-unit">
+                light has travelled 2 years
+              </div>
+
+            </div>
+
+            <div class="data-box">
+
+              <div class="data-title">
+                OBJECT B
+              </div>
+
+              <div class="data-number">
+                8 ly
+              </div>
+
+              <div class="data-unit">
+                light has travelled 8 years
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="choice-grid">
+
+            <button class="choice"
+              onclick="answerSpaceInvestigation(this,false)">
+              Object A
+            </button>
+
+            <button class="choice"
+              onclick="answerSpaceInvestigation(this,true)">
+              Object B
+            </button>
+
+          </div>
+
+          <div id="space-feedback-3" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SPACE STAGE 4 -->
+      <div id="space-stage-4" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">04</div>
+
+            <div>
+              <strong>INFER</strong>
+              <span>Build the astronomical rule</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>What can we infer?</h2>
+
+          <div class="mechanism">
+
+            <div class="mech-box">
+              FARTHER<br>
+              OBJECT
+            </div>
+
+            <div class="mech-arrow">→</div>
+
+            <div class="mech-box">
+              LONGER<br>
+              TRAVEL TIME
+            </div>
+
+            <div class="mech-arrow">→</div>
+
+            <div class="mech-box">
+              FURTHER<br>
+              INTO THE PAST
+            </div>
+
+          </div>
+
+          <div class="choice-grid">
+
+            <button class="choice"
+              onclick="goSpaceStage(5)">
+              Farther objects allow us to see further
+              into the past.
+            </button>
+
+            <button class="choice"
+              onclick="showSpaceWrong()">
+              Farther objects are always brighter.
+            </button>
+
+          </div>
+
+          <div id="space-feedback-4" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SPACE STAGE 5 -->
+      <div id="space-stage-5" class="stage-panel hidden">
+
+        <div class="stage-top">
+
+          <div class="stage-label">
+
+            <div class="stage-num">05</div>
+
+            <div>
+              <strong>SOLVE MYSTERY</strong>
+              <span>Final signal analysis</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="stage-body">
+
+          <h2>Final transmission.</h2>
+
+          <p>
+            Sebuah sinyal dari bintang berjarak
+            <strong>10 light-years</strong> mencapai Bumi hari ini.
+            Kapan perubahan yang menghasilkan sinyal itu terjadi?
+          </p>
+
+          <div class="choice-grid">
+
+            <button class="choice"
+              onclick="solveSpaceMystery(this,false)">
+              1 year ago
+            </button>
+
+            <button class="choice"
+              onclick="solveSpaceMystery(this,true)">
+              10 years ago
+            </button>
+
+            <button class="choice"
+              onclick="solveSpaceMystery(this,false)">
+              Today
+            </button>
+
+          </div>
+
+          <div id="space-feedback-5" class="feedback"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- FINAL -->
+    <div id="final-stage" class="stage hidden">
+
+      <div class="stage-panel final-panel">
+
+        <div class="final-symbol">
+
+          <svg width="55" height="55" viewBox="0 0 55 55">
+
+            <circle
+              cx="27.5"
+              cy="27.5"
+              r="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"/>
+
+            <path
+              d="M17 28 L24 35 L39 19"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+
+          </svg>
+
+        </div>
+
+        <h2>Mission Complete.</h2>
+
+        <p>
+          Kamu berhasil menyelesaikan investigasi sains.
+        </p>
+
+        <div class="score">
+          +3
+        </div>
+
+        <p>
+          Science is not just memorizing facts.<br>
+          It's about observing, testing, and discovering.
+        </p>
+
+        <div class="action-row">
+
+          <button class="primary-btn bio-btn"
+            onclick="goHome()">
+            BACK TO MISSIONS
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<script>
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+let currentGame = "";
+let currentStage = 1;
+
+const gameData = {
+
+  bio:{
+    title:"Body Detective",
+    eyebrow:"MISSION 01 · BIOMEDIS",
+    description:"Investigate the body's response to physical activity.",
+    stages:5
+  },
+
+  physics:{
+    title:"Physics Lab",
+    eyebrow:"MISSION 02 · FISIKA",
+    description:"Predict, experiment, measure, and discover.",
+    stages:6
+  },
+
+  space:{
+    title:"Space Detective",
+    eyebrow:"MISSION 03 · ASTRONOMI",
+    description:"Use light as evidence to investigate cosmic history.",
+    stages:5
+  }
+
+};
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function startGame(type){
+
+  currentGame = type;
+  currentStage = 1;
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+
+  const game = document.getElementById("game");
+
+  game.classList.remove(
+    "bio-theme",
+    "physics-theme",
+    "space-theme"
+  );
+
+  game.classList.add(type + "-theme");
+
+  document.getElementById("bio-game").classList.add("hidden");
+  document.getElementById("physics-game").classList.add("hidden");
+  document.getElementById("space-game").classList.add("hidden");
+  document.getElementById("final-stage").classList.add("hidden");
+
+  document.getElementById(type + "-game")
+    .classList.remove("hidden");
+
+  updateGameHeader();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+function goHome(){
+
+  document.getElementById("game").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+function updateGameHeader(){
+
+  const data = gameData[currentGame];
+
+  document.getElementById("game-title").textContent =
+    data.title;
+
+  document.getElementById("game-eyebrow").textContent =
+    data.eyebrow;
+
+  document.getElementById("game-description").textContent =
+    data.description;
+
+  const percent =
+    Math.round((currentStage / data.stages) * 100);
+
+  document.getElementById("progress-stage").textContent =
+    "STAGE " + currentStage + " / " + data.stages;
+
+  document.getElementById("progress-percent").textContent =
+    percent + "%";
+
+  document.getElementById("progress-fill").style.width =
+    percent + "%";
+}
+
+
+/* =========================================================
+   BIO
+========================================================= */
+
+const selectedObservations = new Set();
+const selectedBodyClues = new Set();
+let explanationOrder = [];
+
+function selectObservation(button,value){
+
+  if(button.classList.contains("selected")){
+
+    button.classList.remove("selected");
+    selectedObservations.delete(value);
+
+  }else{
+
+    if(selectedObservations.size >= 3){
+      return;
+    }
+
+    button.classList.add("selected");
+    selectedObservations.add(value);
+  }
+}
+
+
+function checkObservations(){
+
+  const correct =
+    ["heart","breathing","blood"];
+
+  const isCorrect =
+    selectedObservations.size === 3 &&
+    correct.every(x => selectedObservations.has(x));
+
+  const feedback =
+    document.getElementById("bio-feedback-1");
+
+  feedback.className =
+    "feedback show " +
+    (isCorrect ? "correct" : "wrong");
+
+  feedback.textContent =
+    isCorrect
+    ? "Correct. Heart rate, breathing, and blood flow are directly relevant to the body's response to activity."
+    : "Not quite. Focus on changes directly related to transporting oxygen and supporting active muscles.";
+
+  if(isCorrect){
+
+    currentStage = 2;
+    updateGameHeader();
+
+    setTimeout(()=>{
+      document.getElementById("bio-stage-1")
+        .classList.add("hidden");
+
+      document.getElementById("bio-stage-2")
+        .classList.remove("hidden");
+
+      window.scrollTo({top:0,behavior:"smooth"});
+    },700);
+  }
+}
+
+
+function toggleBodyClue(element,value){
+
+  if(element.classList.contains("selected")){
+
+    element.classList.remove("selected");
+    selectedBodyClues.delete(value);
+
+  }else{
+
+    if(selectedBodyClues.size >= 3){
+      return;
+    }
+
+    element.classList.add("selected");
+    selectedBodyClues.add(value);
+  }
+}
+
+
+function checkBodyClues(){
+
+  const correct =
+    ["oxygen","energy","blood"];
+
+  const isCorrect =
+    selectedBodyClues.size === 3 &&
+    correct.every(x => selectedBodyClues.has(x));
+
+  const feedback =
+    document.getElementById("bio-feedback-2");
+
+  feedback.className =
+    "feedback show " +
+    (isCorrect ? "correct" : "wrong");
+
+  feedback.textContent =
+    isCorrect
+    ? "Evidence connected. Now follow the pathway."
+    : "Choose the clues most directly connected to energy demand, oxygen, and circulation.";
+
+  if(isCorrect){
+
+    document.getElementById("body-mechanism")
+      .classList.remove("hidden");
+
+    setTimeout(()=>{
+
+      currentStage = 3;
+      updateGameHeader();
+
+      document.getElementById("bio-stage-2")
+        .classList.add("hidden");
+
+      document.getElementById("bio-stage-3")
+        .classList.remove("hidden");
+
+      window.scrollTo({top:0,behavior:"smooth"});
+
+    },900);
+  }
+}
+
+
+function answerBodyInvestigation(button,correct){
+
+  document.querySelectorAll(
+    "#bio-stage-3 .choice"
+  ).forEach(b => b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const feedback =
+    document.getElementById("bio-feedback-3");
+
+  feedback.className =
+    "feedback show " +
+    (correct ? "correct" : "wrong");
+
+  feedback.textContent =
+    correct
+    ? "Correct. Increased activity raises the body's demand for oxygen and energy."
+    : "Look at both heart rate and breathing rate. What do those changes suggest about demand?";
+
+  if(correct){
+
+    setTimeout(()=>{
+
+      currentStage = 4;
+      updateGameHeader();
+
+      document.getElementById("bio-stage-3")
+        .classList.add("hidden");
+
+      document.getElementById("bio-stage-4")
+        .classList.remove("hidden");
+
+      window.scrollTo({top:0,behavior:"smooth"});
+
+    },800);
+  }
+}
+
+
+function selectExplanation(element,value){
+
+  if(explanationOrder.includes(value)){
+    return;
+  }
+
+  explanationOrder.push(value);
+
+  element.classList.add("selected");
+
+  element.querySelector(".order-num").textContent =
+    explanationOrder.length;
+}
+
+
+function checkBodyExplanation(){
+
+  const correct = [
+    "activity",
+    "energy",
+    "oxygen",
+    "heart",
+    "breathing"
+  ];
+
+  const isCorrect =
+    explanationOrder.length === 5 &&
+    explanationOrder.every(
+      (x,i) => x === correct[i]
+    );
+
+  const feedback =
+    document.getElementById("bio-feedback-4");
+
+  feedback.className =
+    "feedback show " +
+    (isCorrect ? "correct" : "wrong");
+
+  feedback.textContent =
+    isCorrect
+    ? "Excellent. The causal chain is complete."
+    : "The order is not correct yet. Start with the body's increased activity.";
+
+  if(isCorrect){
+
+    setTimeout(()=>{
+
+      currentStage = 5;
+      updateGameHeader();
+
+      document.getElementById("bio-stage-4")
+        .classList.add("hidden");
+
+      document.getElementById("bio-stage-5")
+        .classList.remove("hidden");
+
+      window.scrollTo({top:0,behavior:"smooth"});
+
+    },800);
+  }
+}
+
+
+function solveBodyCase(button,correct){
+
+  document.querySelectorAll(
+    "#bio-stage-5 .choice"
+  ).forEach(b => b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const feedback =
+    document.getElementById("bio-feedback-5");
+
+  feedback.className =
+    "feedback show " +
+    (correct ? "correct" : "wrong");
+
+  feedback.textContent =
+    correct
+    ? "CASE SOLVED. Your evidence supports the explanation."
+    : "Review the evidence chain: activity → energy demand → oxygen demand → circulation and breathing.";
+
+  if(correct){
+
+    setTimeout(()=>{
+      finishMission();
+    },1000);
+  }
+}
+
+
+/* =========================================================
+   PHYSICS
+========================================================= */
+
+let physicsPrediction = null;
+
+function goPhysicsStage(stage){
+
+  currentStage = stage;
+  updateGameHeader();
+
+  for(let i=1;i<=6;i++){
+
+    const el =
+      document.getElementById("physics-stage-"+i);
+
+    if(el){
+      el.classList.toggle(
+        "hidden",
+        i !== stage
+      );
+    }
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+function runExperiment(){
+
+  const input =
+    document.getElementById("physics-prediction");
+
+  const value =
+    parseFloat(input.value);
+
+  const feedback =
+    document.getElementById("physics-feedback-2");
+
+  if(isNaN(value)){
+
+    feedback.className="feedback show wrong";
+    feedback.textContent="Enter a prediction first.";
+    return;
+  }
+
+  physicsPrediction = value;
+
+  document.getElementById("prediction-result")
+    .textContent =
+    value + " s";
+
+  feedback.className =
+    "feedback show correct";
+
+  feedback.textContent =
+    "Prediction recorded. The actual experiment takes 6 seconds.";
+
+  setTimeout(()=>{
+
+    goPhysicsStage(3);
+
+    setTimeout(()=>{
+
+      document.getElementById("runner-result")
+        .style.left="calc(100% - 52px)";
+
+    },300);
+
+  },800);
+}
+
+
+function prepareExperiment2(){
+
+  goPhysicsStage(4);
+}
+
+
+function updateExperiment2(){
+
+  const input =
+    document.getElementById("experiment-2-input");
+
+  const value =
+    parseFloat(input.value);
+
+  const feedback =
+    document.getElementById("physics-feedback-4");
+
+  if(isNaN(value)){
+
+    feedback.className="feedback show wrong";
+    feedback.textContent="Enter your prediction first.";
+    return;
+  }
+
+  feedback.className =
+    "feedback show " +
+    (Math.abs(value-3)<0.01
+      ? "correct"
+      : "wrong");
+
+  feedback.textContent =
+    Math.abs(value-3)<0.01
+    ? "Correct. 30 ÷ 10 = 3 seconds."
+    : "Not quite. Use time = distance ÷ speed.";
+
+  if(Math.abs(value-3)<0.01){
+
+    setTimeout(()=>{
+      goPhysicsStage(5);
+    },900);
+  }
+}
+
+
+function goPhysicsFinal(button,correct){
+
+  document.querySelectorAll(
+    "#physics-stage-5 .choice"
+  ).forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const feedback =
+    document.getElementById("physics-feedback-5");
+
+  feedback.className =
+    "feedback show " +
+    (correct ? "correct" : "wrong");
+
+  feedback.textContent =
+    correct
+    ? "Exactly. With the same distance, higher speed means less time."
+    : "Compare the two experiments: distance stayed the same, speed changed.";
+
+  if(correct){
+
+    setTimeout(()=>{
+      goPhysicsStage(6);
+    },800);
+  }
+}
+
+
+function answerPhysicsFinal(button,correct){
+
+  document.querySelectorAll(
+    "#physics-stage-6 .choice"
+  ).forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const feedback =
+    document.getElementById("physics-feedback-6");
+
+  feedback.className =
+    "feedback show " +
+    (correct ? "correct" : "wrong");
+
+  feedback.textContent =
+    correct
+    ? "Correct. Runner B has the greater speed, so it reaches 30 m faster."
+    : "Both runners travel the same distance. Compare their speeds.";
+
+  if(correct){
+
+    setTimeout(()=>{
+      finishMission();
+    },1000);
+  }
+}
+
+
+/* =========================================================
+   SPACE
+========================================================= */
+
+function goSpaceStage(stage){
+
+  currentStage = stage;
+  updateGameHeader();
+
+  for(let i=1;i<=5;i++){
+
+    const el =
+      document.getElementById("space-stage-"+i);
+
+    if(el){
+      el.classList.toggle(
+        "hidden",
+        i !== stage
+      );
+    }
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+function answerSpaceClue(button,correct){
+
+  document.querySelectorAll(
+    "#space-stage-2 .choice"
+  ).forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const feedback =
+    document.getElementById("space-feedback-2");
+
+  feedback.className =
+    "feedback show " +
+    (correct ? "correct" : "wrong");
+
+  feedback.textContent =
+    correct
+    ? "Correct. We receive light that left the object 5 years ago."
+    : "Remember: light has a travel time.";
+
+  if(correct){
+
+    setTimeout(()=>{
+      goSpaceStage(3);
+    },800);
+  }
+}
+
+
+function answerSpaceInvestigation(button,correct){
+
+  document.querySelectorAll(
+    "#space-stage-3 .choice"
+  ).forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const feedback =
+    document.getElementById("space-feedback-3");
+
+  feedback.className =
+    "feedback show " +
+    (correct ? "correct" : "wrong");
+
+  feedback.textContent =
+    correct
+    ? "Correct. Object B is farther away, so its light took longer to arrive."
+    : "Compare the travel times: 2 years versus 8 years.";
+
+  if(correct){
+
+    setTimeout(()=>{
+      goSpaceStage(4);
+    },800);
+  }
+}
+
+
+function showSpaceWrong(){
+
+  const feedback =
+    document.getElementById("space-feedback-4");
+
+  feedback.className =
+    "feedback show wrong";
+
+  feedback.textContent =
+    "Think about what distance does to light travel time.";
+}
+
+
+function solveSpaceMystery(button,correct){
+
+  document.querySelectorAll(
+    "#space-stage-5 .choice"
+  ).forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const feedback =
+    document.getElementById("space-feedback-5");
+
+  feedback.className =
+    "feedback show " +
+    (correct ? "correct" : "wrong");
+
+  feedback.textContent =
+    correct
+    ? "MYSTERY SOLVED. A 10-light-year signal shows an event from 10 years ago."
+    : "The signal travelled for 10 years before reaching Earth.";
+
+  if(correct){
+
+    setTimeout(()=>{
+      finishMission();
+    },1000);
+  }
+}
+
+
+/* =========================================================
+   FINISH
+========================================================= */
+
+function finishMission(){
+
+  document.getElementById(currentGame+"-game")
+    .classList.add("hidden");
+
+  document.getElementById("final-stage")
+    .classList.remove("hidden");
+
+  currentStage =
+    gameData[currentGame].stages;
+
+  updateGameHeader();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+</script>
+
+</body>
+</html>
