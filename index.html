@@ -3203,6 +3203,14 @@ function nextButton(feedbackId,nextFn){
   feedback.appendChild(btn);
 }
 
+function openMissionFromLink(){
+  const params = new URLSearchParams(window.location.search);
+  const mission = params.get("mission");
+  if(["bio","physics","space"].includes(mission)){
+    setTimeout(()=>startGame(mission),150);
+  }
+}
+
 function startGame(type){
   currentGame=type;
   currentStage=1;
@@ -3614,6 +3622,9 @@ function finishMission(){
 }
 
 
+
+
+window.addEventListener("DOMContentLoaded", openMissionFromLink);
 </script>
 
 </body>
