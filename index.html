@@ -1091,6 +1091,58 @@ button{
 }
 
 /* =========================================================
+   SCORING + ANSWER FLOW
+========================================================= */
+.score-badge{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  width:max-content;
+  margin-left:auto;
+  margin-top:10px;
+  padding:9px 14px;
+  border-radius:13px;
+  background:#fff8e8;
+  border:1px solid #dfc79d;
+  color:#6e4b25;
+  box-shadow:0 7px 18px rgba(80,55,35,.08);
+}
+.score-badge span{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.score-badge strong{
+  font-family:"Fraunces",serif;
+  font-size:24px;
+}
+.feedback-action{
+  margin-top:12px;
+  border:0;
+  border-radius:11px;
+  padding:10px 15px;
+  font-weight:900;
+  cursor:pointer;
+}
+.feedback-action.retry{
+  background:#fff;
+  color:#813a32;
+  border:1px solid #d58d81;
+}
+.feedback-action.next{
+  background:#332d29;
+  color:#fff;
+}
+.feedback-action:hover{
+  transform:translateY(-1px);
+}
+button:disabled{
+  cursor:not-allowed;
+  opacity:.65;
+  transform:none!important;
+}
+
+/* =========================================================
    FINAL
 ========================================================= */
 
@@ -1539,7 +1591,7 @@ button{
       <div class="brand">
         <div class="brand-mark">SL</div>
         <div class="brand-text">
-          <small>SCIENCE DISCOVERY GAME</small>
+          <small>SCIENCE TEMUKAN POLAY GAME</small>
           <strong>SAINSLOKA</strong>
         </div>
       </div>
@@ -1548,7 +1600,7 @@ button{
     <div class="hero">
 
       <div class="eyebrow">
-        PLAY · EXPLORE · DISCOVER
+        PLAY · EXPLORE · TEMUKAN POLA
       </div>
 
       <h1>
@@ -1725,13 +1777,13 @@ button{
       <div class="brand">
         <div class="brand-mark">SL</div>
         <div class="brand-text">
-          <small>SCIENCE DISCOVERY GAME</small>
+          <small>SCIENCE TEMUKAN POLAY GAME</small>
           <strong>SAINSLOKA</strong>
         </div>
       </div>
 
       <button class="back-btn" onclick="goHome()">
-        ← Missions
+        ← Misi
       </button>
 
     </div>
@@ -1754,6 +1806,11 @@ button{
           </p>
         </div>
 
+      </div>
+
+      <div class="score-badge">
+        <span>POIN</span>
+        <strong id="score-display">0</strong>
       </div>
 
       <div class="progress-wrap">
@@ -1786,8 +1843,8 @@ button{
             <div class="stage-num">01</div>
 
             <div>
-              <strong>OBSERVE</strong>
-              <span>Identify the body's signals</span>
+              <strong>OBSERVASI</strong>
+              <span>Kenali sinyal tubuh</span>
             </div>
 
           </div>
@@ -1796,7 +1853,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>What changed after running?</h2>
+          <h2>Apa yang berubah setelah berlari?</h2>
 
           <p>
             Pilih <strong>3 observasi</strong> yang paling relevan
@@ -1844,38 +1901,38 @@ button{
 
             <div class="lab-card">
 
-              <h3>SELECT EVIDENCE</h3>
+              <h3>PILIH BUKTI</h3>
 
               <div class="choice-grid">
 
                 <button class="choice bio-observation"
                   onclick="selectObservation(this,'heart')">
-                  Heart Rate ↑
+                  Detak Jantung ↑
                 </button>
 
                 <button class="choice bio-observation"
                   onclick="selectObservation(this,'breathing')">
-                  Breathing ↑
+                  Pernapasan ↑
                 </button>
 
                 <button class="choice bio-observation"
                   onclick="selectObservation(this,'blood')">
-                  Blood Flow ↑
+                  Aliran Darah ↑
                 </button>
 
                 <button class="choice bio-observation"
                   onclick="selectObservation(this,'digestion')">
-                  Digestion ↑
+                  Pencernaan ↑
                 </button>
 
                 <button class="choice bio-observation"
                   onclick="selectObservation(this,'sleep')">
-                  Sleepiness ↑
+                  Rasa Kantuk ↑
                 </button>
 
                 <button class="choice bio-observation"
                   onclick="selectObservation(this,'memory')">
-                  Memory ↑
+                  Daya Ingat ↑
                 </button>
 
               </div>
@@ -1888,7 +1945,7 @@ button{
 
             <button class="primary-btn bio-btn"
               onclick="checkObservations()">
-              ANALYZE OBSERVATIONS →
+              ANALISIS OBSERVASI →
             </button>
 
           </div>
@@ -1910,8 +1967,8 @@ button{
             <div class="stage-num">02</div>
 
             <div>
-              <strong>CONNECT</strong>
-              <span>Build the biological mechanism</span>
+              <strong>HUBUNGKAN</strong>
+              <span>Bangun mekanisme biologis</span>
             </div>
 
           </div>
@@ -1920,10 +1977,10 @@ button{
 
         <div class="stage-body">
 
-          <h2>Which clues explain the changes?</h2>
+          <h2>Petunjuk apa yang menjelaskan perubahan ini?</h2>
 
           <p>
-            Pilih <strong>3 evidence</strong> yang menghubungkan
+            Pilih <strong>3 bukti</strong> yang menghubungkan
             aktivitas fisik dengan kebutuhan tubuh.
           </p>
 
@@ -1933,35 +1990,35 @@ button{
               onclick="toggleBodyClue(this,'oxygen')">
               <div class="evidence-icon">O₂</div>
               <strong>OXYGEN</strong>
-              <small>needed by active cells</small>
+              <small>dibutuhkan oleh sel yang aktif</small>
             </div>
 
             <div class="evidence"
               onclick="toggleBodyClue(this,'energy')">
               <div class="evidence-icon">E</div>
               <strong>ENERGY</strong>
-              <small>required for muscle activity</small>
+              <small>dibutuhkan untuk aktivitas otot</small>
             </div>
 
             <div class="evidence"
               onclick="toggleBodyClue(this,'blood')">
               <div class="evidence-icon">B</div>
               <strong>BLOOD</strong>
-              <small>transports substances</small>
+              <small>mengangkut berbagai zat</small>
             </div>
 
             <div class="evidence"
               onclick="toggleBodyClue(this,'digestion')">
               <div class="evidence-icon">D</div>
               <strong>DIGESTION</strong>
-              <small>food processing system</small>
+              <small>sistem pengolahan makanan</small>
             </div>
 
             <div class="evidence"
               onclick="toggleBodyClue(this,'sleep')">
               <div class="evidence-icon">S</div>
               <strong>SLEEP</strong>
-              <small>rest and recovery</small>
+              <small>istirahat dan pemulihan</small>
             </div>
 
           </div>
@@ -1970,7 +2027,7 @@ button{
 
             <button class="primary-btn bio-btn"
               onclick="checkBodyClues()">
-              CONNECT EVIDENCE →
+              HUBUNGKAN BUKTI →
             </button>
 
           </div>
@@ -2011,8 +2068,8 @@ button{
             <div class="stage-num">03</div>
 
             <div>
-              <strong>INVESTIGATE</strong>
-              <span>Compare physiological data</span>
+              <strong>SELIDIKI</strong>
+              <span>Bandingkan data tubuh</span>
             </div>
 
           </div>
@@ -2021,7 +2078,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>Read the body data.</h2>
+          <h2>Baca data tubuh.</h2>
 
           <p>
             Bandingkan kondisi sebelum dan sesudah berlari.
@@ -2033,7 +2090,7 @@ button{
             <div class="data-box">
 
               <div class="data-title">
-                BEFORE RUNNING
+                SEBELUM BERLARI
               </div>
 
               <div class="data-number">
@@ -2041,7 +2098,7 @@ button{
               </div>
 
               <div class="data-unit">
-                heart beats / minute
+                detak jantung / menit
               </div>
 
               <hr>
@@ -2051,7 +2108,7 @@ button{
               </div>
 
               <div class="data-unit">
-                breaths / minute
+                napas / menit
               </div>
 
             </div>
@@ -2059,7 +2116,7 @@ button{
             <div class="data-box">
 
               <div class="data-title">
-                AFTER RUNNING
+                SETELAH BERLARI
               </div>
 
               <div class="data-number">
@@ -2067,7 +2124,7 @@ button{
               </div>
 
               <div class="data-unit">
-                heart beats / minute
+                detak jantung / menit
               </div>
 
               <hr>
@@ -2077,7 +2134,7 @@ button{
               </div>
 
               <div class="data-unit">
-                breaths / minute
+                napas / menit
               </div>
 
             </div>
@@ -2088,22 +2145,22 @@ button{
 
             <button class="choice"
               onclick="answerBodyInvestigation(this,false)">
-              The body needs less oxygen.
+              Tubuh membutuhkan lebih sedikit oksigen.
             </button>
 
             <button class="choice"
               onclick="answerBodyInvestigation(this,true)">
-              The body's oxygen demand increased.
+              Kebutuhan oksigen tubuh meningkat.
             </button>
 
             <button class="choice"
               onclick="answerBodyInvestigation(this,false)">
-              Digestion became the main priority.
+              Pencernaan menjadi prioritas utama.
             </button>
 
             <button class="choice"
               onclick="answerBodyInvestigation(this,false)">
-              The heart stopped working normally.
+              Jantung berhenti bekerja secara normal.
             </button>
 
           </div>
@@ -2125,8 +2182,8 @@ button{
             <div class="stage-num">04</div>
 
             <div>
-              <strong>BUILD EXPLANATION</strong>
-              <span>Connect cause and effect</span>
+              <strong>BANGUN PENJELASAN</strong>
+              <span>Hubungkan sebab dan akibat</span>
             </div>
 
           </div>
@@ -2135,7 +2192,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>Build the mechanism.</h2>
+          <h2>Bangun mekanismenya.</h2>
 
           <p>
             Klik urutan yang benar dari perubahan aktivitas
@@ -2147,31 +2204,31 @@ button{
             <div class="order-item"
               onclick="selectExplanation(this,'oxygen')">
               <div class="order-num">?</div>
-              OXYGEN DEMAND ↑
+              KEBUTUHAN OKSIGEN ↑
             </div>
 
             <div class="order-item"
               onclick="selectExplanation(this,'heart')">
               <div class="order-num">?</div>
-              HEART RATE ↑
+              DETAK JANTUNG ↑
             </div>
 
             <div class="order-item"
               onclick="selectExplanation(this,'activity')">
               <div class="order-num">?</div>
-              BODY ACTIVITY ↑
+              AKTIVITAS TUBUH ↑
             </div>
 
             <div class="order-item"
               onclick="selectExplanation(this,'energy')">
               <div class="order-num">?</div>
-              ENERGY DEMAND ↑
+              KEBUTUHAN ENERGI ↑
             </div>
 
             <div class="order-item"
               onclick="selectExplanation(this,'breathing')">
               <div class="order-num">?</div>
-              BREATHING ↑
+              PERNAPASAN ↑
             </div>
 
           </div>
@@ -2180,7 +2237,7 @@ button{
 
             <button class="primary-btn bio-btn"
               onclick="checkBodyExplanation()">
-              VERIFY MECHANISM →
+              VERIFIKASI MEKANISME →
             </button>
 
           </div>
@@ -2202,8 +2259,8 @@ button{
             <div class="stage-num">05</div>
 
             <div>
-              <strong>SOLVE CASE</strong>
-              <span>Final diagnosis</span>
+              <strong>PECAHKAN KASUS</strong>
+              <span>Kesimpulan akhir</span>
             </div>
 
           </div>
@@ -2212,7 +2269,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>Case file: solved?</h2>
+          <h2>Kasus: sudah terpecahkan?</h2>
 
           <p>
             Berdasarkan seluruh evidence, pilih penjelasan
@@ -2223,20 +2280,20 @@ button{
 
             <button class="choice"
               onclick="solveBodyCase(this,true)">
-              Body needs more oxygen and energy, so respiratory
-              and circulatory activity increases.
+              Tubuh membutuhkan lebih banyak oksigen dan energi, sehingga
+              aktivitas pernapasan dan peredaran darah meningkat.
             </button>
 
             <button class="choice"
               onclick="solveBodyCase(this,false)">
-              The body increases heart rate because digestion
-              suddenly becomes faster.
+              Detak jantung meningkat karena pencernaan
+              tiba-tiba menjadi lebih cepat.
             </button>
 
             <button class="choice"
               onclick="solveBodyCase(this,false)">
-              Breathing increases because the brain stops
-              controlling the body.
+              Pernapasan meningkat karena otak berhenti
+              mengendalikan tubuh.
             </button>
 
           </div>
@@ -2264,8 +2321,8 @@ button{
             <div class="stage-num">01</div>
 
             <div>
-              <strong>OBSERVE</strong>
-              <span>Set up the experiment</span>
+              <strong>OBSERVASI</strong>
+              <span>Siapkan eksperimen</span>
             </div>
 
           </div>
@@ -2274,7 +2331,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>The runner experiment.</h2>
+          <h2>Eksperimen pelari.</h2>
 
           <p>
             Kita ingin mengetahui bagaimana kecepatan memengaruhi
@@ -2306,17 +2363,17 @@ button{
             <div class="measure-grid">
 
               <div class="measure">
-                <label>DISTANCE</label>
+                <label>JARAK</label>
                 <strong>30 m</strong>
               </div>
 
               <div class="measure">
-                <label>SPEED</label>
+                <label>KECEPATAN</label>
                 <strong>5 m/s</strong>
               </div>
 
               <div class="measure">
-                <label>TIME</label>
+                <label>WAKTU</label>
                 <strong>?</strong>
               </div>
 
@@ -2328,7 +2385,7 @@ button{
 
             <button class="primary-btn phy-btn"
               onclick="goPhysicsStage(2)">
-              SET PREDICTION →
+              SET PREDIKSIION →
             </button>
 
           </div>
@@ -2348,8 +2405,8 @@ button{
             <div class="stage-num">02</div>
 
             <div>
-              <strong>PREDICT</strong>
-              <span>Make your hypothesis</span>
+              <strong>PREDIKSI</strong>
+              <span>Buat prediksi</span>
             </div>
 
           </div>
@@ -2358,7 +2415,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>How long will it take?</h2>
+          <h2>Berapa lama waktu yang dibutuhkan?</h2>
 
           <p>
             Sebelum eksperimen berjalan, masukkan prediksi
@@ -2368,11 +2425,11 @@ button{
           <div class="physics-lab">
 
             <div class="formula">
-              time = distance ÷ speed
+              waktu = jarak ÷ kecepatan
             </div>
 
             <label>
-              Your prediction
+              Prediksi kamu
             </label>
 
             <input
@@ -2388,7 +2445,7 @@ button{
 
             <button class="primary-btn phy-btn"
               onclick="runExperiment()">
-              RUN EXPERIMENT →
+              JALANKAN EKSPERIMEN →
             </button>
 
           </div>
@@ -2410,8 +2467,8 @@ button{
             <div class="stage-num">03</div>
 
             <div>
-              <strong>EXPERIMENT 01</strong>
-              <span>Observe the result</span>
+              <strong>EKSPERIMEN 01</strong>
+              <span>Amati hasil</span>
             </div>
 
           </div>
@@ -2420,7 +2477,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>Experiment complete.</h2>
+          <h2>Eksperimen selesai.</h2>
 
           <p>
             Runner bergerak sejauh 30 meter dengan kecepatan 5 m/s.
@@ -2445,17 +2502,17 @@ button{
             <div class="measure-grid">
 
               <div class="measure">
-                <label>PREDICTION</label>
+                <label>PREDIKSIION</label>
                 <strong id="prediction-result">—</strong>
               </div>
 
               <div class="measure">
-                <label>ACTUAL TIME</label>
+                <label>ACTUAL WAKTU</label>
                 <strong>6 s</strong>
               </div>
 
               <div class="measure">
-                <label>DISTANCE</label>
+                <label>JARAK</label>
                 <strong>30 m</strong>
               </div>
 
@@ -2467,7 +2524,7 @@ button{
 
             <button class="primary-btn phy-btn"
               onclick="prepareExperiment2()">
-              CHANGE SPEED →
+              UBAH KECEPATAN →
             </button>
 
           </div>
@@ -2487,8 +2544,8 @@ button{
             <div class="stage-num">04</div>
 
             <div>
-              <strong>EXPERIMENT 02</strong>
-              <span>Change one variable</span>
+              <strong>EKSPERIMEN 02</strong>
+              <span>Ubah satu variabel</span>
             </div>
 
           </div>
@@ -2497,7 +2554,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>Same distance. Faster runner.</h2>
+          <h2>Jarak sama. Pelari lebih cepat.</h2>
 
           <p>
             Jarak tetap 30 m. Sekarang kecepatan menjadi
@@ -2514,7 +2571,7 @@ button{
               id="experiment-2-input"
               class="predict-input"
               type="number"
-              placeholder="Predicted time"
+              placeholder="Prediksi waktu"
               step="0.1">
 
           </div>
@@ -2523,7 +2580,7 @@ button{
 
             <button class="primary-btn phy-btn"
               onclick="updateExperiment2()">
-              RUN SECOND EXPERIMENT →
+              JALANKAN EKSPERIMEN KEDUA →
             </button>
 
           </div>
@@ -2545,8 +2602,8 @@ button{
             <div class="stage-num">05</div>
 
             <div>
-              <strong>DISCOVER</strong>
-              <span>Find the relationship</span>
+              <strong>TEMUKAN POLA</strong>
+              <span>Temukan hubungannya</span>
             </div>
 
           </div>
@@ -2555,30 +2612,30 @@ button{
 
         <div class="stage-body">
 
-          <h2>What did the experiments reveal?</h2>
+          <h2>Apa yang ditunjukkan oleh kedua eksperimen?</h2>
 
           <div class="data-panel">
 
             <div class="data-box">
 
-              <div class="data-title">EXPERIMENT 01</div>
+              <div class="data-title">EKSPERIMEN 01</div>
 
               <div class="data-number">5 m/s</div>
 
               <div class="data-unit">
-                30 m → 6 seconds
+                30 m → 6 detik
               </div>
 
             </div>
 
             <div class="data-box">
 
-              <div class="data-title">EXPERIMENT 02</div>
+              <div class="data-title">EKSPERIMEN 02</div>
 
               <div class="data-number">10 m/s</div>
 
               <div class="data-unit">
-                30 m → 3 seconds
+                30 m → 3 detik
               </div>
 
             </div>
@@ -2589,18 +2646,18 @@ button{
 
             <button class="choice"
               onclick="goPhysicsFinal(this,false)">
-              Speed increases → time increases.
+              Kecepatan meningkat → waktu meningkat.
             </button>
 
             <button class="choice"
               onclick="goPhysicsFinal(this,true)">
-              Speed increases → time decreases
-              for the same distance.
+              Kecepatan meningkat → waktu berkurang
+              untuk jarak yang sama.
             </button>
 
             <button class="choice"
               onclick="goPhysicsFinal(this,false)">
-              Speed has no relationship with time.
+              Kecepatan tidak berhubungan dengan waktu.
             </button>
 
           </div>
@@ -2622,8 +2679,8 @@ button{
             <div class="stage-num">06</div>
 
             <div>
-              <strong>FINAL CHALLENGE</strong>
-              <span>Apply the discovery</span>
+              <strong>TANTANGAN AKHIR</strong>
+              <span>Terapkan penemuan</span>
             </div>
 
           </div>
@@ -2632,11 +2689,11 @@ button{
 
         <div class="stage-body">
 
-          <h2>Final physics challenge.</h2>
+          <h2>Tantangan fisika terakhir.</h2>
 
           <p>
             Jarak yang sama: <strong>30 m</strong>.
-            Runner A bergerak 5 m/s, Runner B 10 m/s.
+            Pelari A bergerak 5 m/s, Pelari B 10 m/s.
             Siapa yang sampai lebih cepat?
           </p>
 
@@ -2644,12 +2701,12 @@ button{
 
             <button class="choice"
               onclick="answerPhysicsFinal(this,false)">
-              Runner A
+              Pelari A
             </button>
 
             <button class="choice"
               onclick="answerPhysicsFinal(this,true)">
-              Runner B
+              Pelari B
             </button>
 
           </div>
@@ -2677,8 +2734,8 @@ button{
             <div class="stage-num">01</div>
 
             <div>
-              <strong>OBSERVE</strong>
-              <span>Identify the signal</span>
+              <strong>OBSERVASI</strong>
+              <span>Identifikasi sinyal</span>
             </div>
 
           </div>
@@ -2691,7 +2748,7 @@ button{
 
           <p>
             Sebuah objek terdeteksi pada jarak
-            <strong>5 light-years</strong>.
+            <strong>5 tahun cahaya</strong>.
           </p>
 
           <div class="space-map">
@@ -2711,23 +2768,23 @@ button{
           <div class="space-clues">
 
             <div class="space-clue">
-              <strong>DISTANCE</strong>
-              <small>5 light-years</small>
+              <strong>JARAK</strong>
+              <small>5 tahun cahaya</small>
             </div>
 
             <div class="space-clue">
               <strong>COLOR</strong>
-              <small>Blue</small>
+              <small>Biru</small>
             </div>
 
             <div class="space-clue">
               <strong>BRIGHTNESS</strong>
-              <small>Very high</small>
+              <small>Sangat tinggi</small>
             </div>
 
             <div class="space-clue">
               <strong>QUESTION</strong>
-              <small>When did this light leave?</small>
+              <small>Kapan cahaya ini meninggalkan objek?</small>
             </div>
 
           </div>
@@ -2736,7 +2793,7 @@ button{
 
             <button class="primary-btn space-btn"
               onclick="goSpaceStage(2)">
-              CONNECT CLUES →
+              HUBUNGKAN PETUNJUK →
             </button>
 
           </div>
@@ -2756,8 +2813,8 @@ button{
             <div class="stage-num">02</div>
 
             <div>
-              <strong>CONNECT CLUES</strong>
-              <span>Understand the light signal</span>
+              <strong>HUBUNGKAN CLUES</strong>
+              <span>Pahami sinyal cahaya</span>
             </div>
 
           </div>
@@ -2766,32 +2823,32 @@ button{
 
         <div class="stage-body">
 
-          <h2>Light takes time to travel.</h2>
+          <h2>Cahaya membutuhkan waktu untuk menempuh jarak.</h2>
 
           <p>
-            Jika objek berjarak 5 light-years,
+            Jika objek berjarak 5 tahun cahaya,
             cahaya membutuhkan 5 tahun untuk mencapai kita.
           </p>
 
           <div class="mechanism">
 
             <div class="mech-box">
-              OBJECT<br>
-              <small>5 ly away</small>
+              OBJEK<br>
+              <small>berjarak 5 tc</small>
             </div>
 
             <div class="mech-arrow">→</div>
 
             <div class="mech-box">
-              LIGHT<br>
-              <small>travels 5 years</small>
+              CAHAYA<br>
+              <small>menempuh 5 tahun</small>
             </div>
 
             <div class="mech-arrow">→</div>
 
             <div class="mech-box">
-              EARTH<br>
-              <small>sees the signal</small>
+              BUMI<br>
+              <small>menerima sinyal</small>
             </div>
 
           </div>
@@ -2800,18 +2857,18 @@ button{
 
             <button class="choice"
               onclick="answerSpaceClue(this,false)">
-              We see the object exactly as it is now.
+              Kita melihat objek tepat seperti keadaannya sekarang.
             </button>
 
             <button class="choice"
               onclick="answerSpaceClue(this,true)">
-              We see the object as it was
-              5 years ago.
+              Kita melihat objek seperti keadaannya
+              5 tahun yang lalu.
             </button>
 
             <button class="choice"
               onclick="answerSpaceClue(this,false)">
-              Light arrives before it leaves the object.
+              Cahaya tiba sebelum meninggalkan objek.
             </button>
 
           </div>
@@ -2833,8 +2890,8 @@ button{
             <div class="stage-num">03</div>
 
             <div>
-              <strong>INVESTIGATE</strong>
-              <span>Compare two objects</span>
+              <strong>SELIDIKI</strong>
+              <span>Bandingkan dua objek</span>
             </div>
 
           </div>
@@ -2843,14 +2900,14 @@ button{
 
         <div class="stage-body">
 
-          <h2>Which object shows an older state?</h2>
+          <h2>Objek mana yang menunjukkan keadaan lebih lama?</h2>
 
           <div class="data-panel">
 
             <div class="data-box">
 
               <div class="data-title">
-                OBJECT A
+                OBJEK A
               </div>
 
               <div class="data-number">
@@ -2858,7 +2915,7 @@ button{
               </div>
 
               <div class="data-unit">
-                light has travelled 2 years
+                cahaya menempuh 2 tahun
               </div>
 
             </div>
@@ -2866,7 +2923,7 @@ button{
             <div class="data-box">
 
               <div class="data-title">
-                OBJECT B
+                OBJEK B
               </div>
 
               <div class="data-number">
@@ -2874,7 +2931,7 @@ button{
               </div>
 
               <div class="data-unit">
-                light has travelled 8 years
+                cahaya menempuh 8 tahun
               </div>
 
             </div>
@@ -2885,12 +2942,12 @@ button{
 
             <button class="choice"
               onclick="answerSpaceInvestigation(this,false)">
-              Object A
+              Objek A
             </button>
 
             <button class="choice"
               onclick="answerSpaceInvestigation(this,true)">
-              Object B
+              Objek B
             </button>
 
           </div>
@@ -2912,7 +2969,7 @@ button{
             <div class="stage-num">04</div>
 
             <div>
-              <strong>INFER</strong>
+              <strong>SIMPULKAN</strong>
               <span>Build the astronomical rule</span>
             </div>
 
@@ -2922,20 +2979,20 @@ button{
 
         <div class="stage-body">
 
-          <h2>What can we infer?</h2>
+          <h2>Apa yang dapat kita simpulkan?</h2>
 
           <div class="mechanism">
 
             <div class="mech-box">
               FARTHER<br>
-              OBJECT
+              OBJEK
             </div>
 
             <div class="mech-arrow">→</div>
 
             <div class="mech-box">
               LONGER<br>
-              TRAVEL TIME
+              TRAVEL WAKTU
             </div>
 
             <div class="mech-arrow">→</div>
@@ -2951,13 +3008,13 @@ button{
 
             <button class="choice"
               onclick="goSpaceStage(5)">
-              Farther objects allow us to see further
-              into the past.
+              Objek yang lebih jauh memungkinkan kita melihat
+              keadaan yang lebih lampau.
             </button>
 
             <button class="choice"
               onclick="showSpaceWrong()">
-              Farther objects are always brighter.
+              Objek yang lebih jauh selalu lebih terang.
             </button>
 
           </div>
@@ -2979,7 +3036,7 @@ button{
             <div class="stage-num">05</div>
 
             <div>
-              <strong>SOLVE MYSTERY</strong>
+              <strong>PECAHKAN MISTERI</strong>
               <span>Final signal analysis</span>
             </div>
 
@@ -2989,7 +3046,7 @@ button{
 
         <div class="stage-body">
 
-          <h2>Final transmission.</h2>
+          <h2>Sinyal terakhir.</h2>
 
           <p>
             Sebuah sinyal dari bintang berjarak
@@ -3001,17 +3058,17 @@ button{
 
             <button class="choice"
               onclick="solveSpaceMystery(this,false)">
-              1 year ago
+              1 tahun yang lalu
             </button>
 
             <button class="choice"
               onclick="solveSpaceMystery(this,true)">
-              10 years ago
+              10 tahun yang lalu
             </button>
 
             <button class="choice"
               onclick="solveSpaceMystery(this,false)">
-              Today
+              Hari ini
             </button>
 
           </div>
@@ -3054,7 +3111,7 @@ button{
 
         </div>
 
-        <h2>Mission Complete.</h2>
+        <h2>Misi Selesai.</h2>
 
         <p>
           Kamu berhasil menyelesaikan investigasi sains.
@@ -3073,7 +3130,7 @@ button{
 
           <button class="primary-btn bio-btn"
             onclick="goHome()">
-            BACK TO MISSIONS
+            KEMBALI KE MISI
           </button>
 
         </div>
@@ -3094,701 +3151,458 @@ button{
 
 let currentGame = "";
 let currentStage = 1;
+let score = 0;
+const ANSWER_PAUSE = 4500;
 
 const gameData = {
-
-  bio:{
-    title:"Body Detective",
-    eyebrow:"MISSION 01 · BIOMEDIS",
-    description:"Investigate the body's response to physical activity.",
-    stages:5
-  },
-
-  physics:{
-    title:"Physics Lab",
-    eyebrow:"MISSION 02 · FISIKA",
-    description:"Predict, experiment, measure, and discover.",
-    stages:6
-  },
-
-  space:{
-    title:"Space Detective",
-    eyebrow:"MISSION 03 · ASTRONOMI",
-    description:"Use light as evidence to investigate cosmic history.",
-    stages:5
-  }
-
+  bio:{title:"Body Detective",eyebrow:"MISSION 01 · BIOMEDIS",description:"Selidiki respons tubuh terhadap aktivitas fisik.",stages:5},
+  physics:{title:"Physics Lab",eyebrow:"MISSION 02 · FISIKA",description:"Buat prediksi, lakukan eksperimen, dan temukan pola.",stages:6},
+  space:{title:"Space Detective",eyebrow:"MISSION 03 · ASTRONOMI",description:"Gunakan cahaya sebagai bukti untuk menyelidiki masa lalu kosmik.",stages:5}
 };
 
+function updateScore(){
+  const el=document.getElementById("score-display");
+  if(el) el.textContent=score;
+}
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+function addScore(delta){
+  score=Math.max(0,score+delta);
+  updateScore();
+}
+
+function lock(selector,disabled=true){
+  document.querySelectorAll(selector).forEach(el=>el.disabled=disabled);
+}
+
+function clearFeedbackActions(feedback){
+  feedback.querySelectorAll(".feedback-action").forEach(b=>b.remove());
+}
+
+function retryButton(feedbackId,resetFn,unlockSelector){
+  const feedback=document.getElementById(feedbackId);
+  clearFeedbackActions(feedback);
+  const btn=document.createElement("button");
+  btn.className="feedback-action retry";
+  btn.textContent="↻ COBA LAGI";
+  btn.onclick=()=>{
+    resetFn();
+    lock(unlockSelector,false);
+    feedback.className="feedback";
+    feedback.innerHTML="";
+  };
+  feedback.appendChild(btn);
+}
+
+function nextButton(feedbackId,nextFn){
+  const feedback=document.getElementById(feedbackId);
+  clearFeedbackActions(feedback);
+  setTimeout(()=>{
+    const btn=document.createElement("button");
+    btn.className="feedback-action next";
+    btn.textContent="LANJUT KE SOAL BERIKUTNYA →";
+    btn.onclick=nextFn;
+    feedback.appendChild(btn);
+  },ANSWER_PAUSE);
+}
 
 function startGame(type){
-
-  currentGame = type;
-  currentStage = 1;
-
+  currentGame=type;
+  currentStage=1;
+  score=0;
+  updateScore();
   document.getElementById("home").classList.add("hidden");
   document.getElementById("game").classList.remove("hidden");
-
-  const game = document.getElementById("game");
-
-  game.classList.remove(
-    "bio-theme",
-    "physics-theme",
-    "space-theme"
-  );
-
-  game.classList.add(type + "-theme");
-
+  const game=document.getElementById("game");
+  game.classList.remove("bio-theme","physics-theme","space-theme");
+  game.classList.add(type+"-theme");
   document.getElementById("bio-game").classList.add("hidden");
   document.getElementById("physics-game").classList.add("hidden");
   document.getElementById("space-game").classList.add("hidden");
   document.getElementById("final-stage").classList.add("hidden");
-
-  document.getElementById(type + "-game")
-    .classList.remove("hidden");
-
+  document.getElementById(type+"-game").classList.remove("hidden");
   updateGameHeader();
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-
 
 function goHome(){
-
   document.getElementById("game").classList.add("hidden");
   document.getElementById("home").classList.remove("hidden");
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-
 
 function updateGameHeader(){
-
-  const data = gameData[currentGame];
-
-  document.getElementById("game-title").textContent =
-    data.title;
-
-  document.getElementById("game-eyebrow").textContent =
-    data.eyebrow;
-
-  document.getElementById("game-description").textContent =
-    data.description;
-
-  const percent =
-    Math.round((currentStage / data.stages) * 100);
-
-  document.getElementById("progress-stage").textContent =
-    "STAGE " + currentStage + " / " + data.stages;
-
-  document.getElementById("progress-percent").textContent =
-    percent + "%";
-
-  document.getElementById("progress-fill").style.width =
-    percent + "%";
+  const data=gameData[currentGame];
+  document.getElementById("game-title").textContent=data.title;
+  document.getElementById("game-eyebrow").textContent=data.eyebrow;
+  document.getElementById("game-description").textContent=data.description;
+  const percent=Math.round((currentStage/data.stages)*100);
+  document.getElementById("progress-stage").textContent="TAHAP "+currentStage+" / "+data.stages;
+  document.getElementById("progress-percent").textContent=percent+"%";
+  document.getElementById("progress-fill").style.width=percent+"%";
+  updateScore();
 }
-
 
 /* =========================================================
    BIO
 ========================================================= */
 
-const selectedObservations = new Set();
-const selectedBodyClues = new Set();
-let explanationOrder = [];
+const selectedObservations=new Set();
+const selectedBodyClues=new Set();
+let explanationOrder=[];
 
 function selectObservation(button,value){
-
   if(button.classList.contains("selected")){
-
     button.classList.remove("selected");
     selectedObservations.delete(value);
-
-  }else{
-
-    if(selectedObservations.size >= 3){
-      return;
-    }
-
+  }else if(selectedObservations.size<3){
     button.classList.add("selected");
     selectedObservations.add(value);
   }
 }
 
-
 function checkObservations(){
-
-  const correct =
-    ["heart","breathing","blood"];
-
-  const isCorrect =
-    selectedObservations.size === 3 &&
-    correct.every(x => selectedObservations.has(x));
-
-  const feedback =
-    document.getElementById("bio-feedback-1");
-
-  feedback.className =
-    "feedback show " +
-    (isCorrect ? "correct" : "wrong");
-
-  feedback.textContent =
-    isCorrect
-    ? "Correct. Heart rate, breathing, and blood flow are directly relevant to the body's response to activity."
-    : "Not quite. Focus on changes directly related to transporting oxygen and supporting active muscles.";
-
-  if(isCorrect){
-
-    currentStage = 2;
-    updateGameHeader();
-
-    setTimeout(()=>{
-      document.getElementById("bio-stage-1")
-        .classList.add("hidden");
-
-      document.getElementById("bio-stage-2")
-        .classList.remove("hidden");
-
+  const correct=["heart","breathing","blood"];
+  const ok=selectedObservations.size===3 && correct.every(x=>selectedObservations.has(x));
+  const feedback=document.getElementById("bio-feedback-1");
+  lock("#bio-stage-1 .bio-observation, #bio-stage-1 .action-row button");
+  if(ok){
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Detak jantung, pernapasan, dan aliran darah meningkat untuk membantu memenuhi kebutuhan tubuh saat aktif.";
+    nextButton("bio-feedback-1",()=>{
+      document.getElementById("bio-stage-1").classList.add("hidden");
+      document.getElementById("bio-stage-2").classList.remove("hidden");
+      currentStage=2; updateGameHeader();
       window.scrollTo({top:0,behavior:"smooth"});
-    },700);
+    });
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Pilih tiga perubahan yang paling berkaitan dengan peningkatan kebutuhan oksigen dan aktivitas otot.";
+    retryButton("bio-feedback-1",()=>{
+      selectedObservations.clear();
+      document.querySelectorAll("#bio-stage-1 .bio-observation").forEach(b=>b.classList.remove("selected"));
+    },"#bio-stage-1 .bio-observation, #bio-stage-1 .action-row button");
   }
 }
-
 
 function toggleBodyClue(element,value){
-
   if(element.classList.contains("selected")){
-
-    element.classList.remove("selected");
-    selectedBodyClues.delete(value);
-
-  }else{
-
-    if(selectedBodyClues.size >= 3){
-      return;
-    }
-
-    element.classList.add("selected");
-    selectedBodyClues.add(value);
+    element.classList.remove("selected"); selectedBodyClues.delete(value);
+  }else if(selectedBodyClues.size<3){
+    element.classList.add("selected"); selectedBodyClues.add(value);
   }
 }
-
 
 function checkBodyClues(){
-
-  const correct =
-    ["oxygen","energy","blood"];
-
-  const isCorrect =
-    selectedBodyClues.size === 3 &&
-    correct.every(x => selectedBodyClues.has(x));
-
-  const feedback =
-    document.getElementById("bio-feedback-2");
-
-  feedback.className =
-    "feedback show " +
-    (isCorrect ? "correct" : "wrong");
-
-  feedback.textContent =
-    isCorrect
-    ? "Evidence connected. Now follow the pathway."
-    : "Choose the clues most directly connected to energy demand, oxygen, and circulation.";
-
-  if(isCorrect){
-
-    document.getElementById("body-mechanism")
-      .classList.remove("hidden");
-
-    setTimeout(()=>{
-
-      currentStage = 3;
-      updateGameHeader();
-
-      document.getElementById("bio-stage-2")
-        .classList.add("hidden");
-
-      document.getElementById("bio-stage-3")
-        .classList.remove("hidden");
-
+  const correct=["oxygen","energy","blood"];
+  const ok=selectedBodyClues.size===3 && correct.every(x=>selectedBodyClues.has(x));
+  const feedback=document.getElementById("bio-feedback-2");
+  lock("#bio-stage-2 .evidence, #bio-stage-2 .action-row button");
+  if(ok){
+    addScore(3);
+    document.getElementById("body-mechanism").classList.remove("hidden");
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Ketiga bukti ini terhubung dengan kebutuhan energi, oksigen, dan peredaran darah saat tubuh aktif.";
+    nextButton("bio-feedback-2",()=>{
+      document.getElementById("bio-stage-2").classList.add("hidden");
+      document.getElementById("bio-stage-3").classList.remove("hidden");
+      currentStage=3; updateGameHeader();
       window.scrollTo({top:0,behavior:"smooth"});
-
-    },900);
+    });
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Pilih Oksigen, Energi, dan Darah sebagai tiga petunjuk utama.";
+    retryButton("bio-feedback-2",()=>{
+      selectedBodyClues.clear();
+      document.querySelectorAll("#bio-stage-2 .evidence").forEach(e=>e.classList.remove("selected"));
+      document.getElementById("body-mechanism").classList.add("hidden");
+    },"#bio-stage-2 .evidence, #bio-stage-2 .action-row button");
   }
 }
-
 
 function answerBodyInvestigation(button,correct){
-
-  document.querySelectorAll(
-    "#bio-stage-3 .choice"
-  ).forEach(b => b.classList.remove("selected"));
-
+  document.querySelectorAll("#bio-stage-3 .choice").forEach(b=>b.classList.remove("selected"));
   button.classList.add("selected");
-
-  const feedback =
-    document.getElementById("bio-feedback-3");
-
-  feedback.className =
-    "feedback show " +
-    (correct ? "correct" : "wrong");
-
-  feedback.textContent =
-    correct
-    ? "Correct. Increased activity raises the body's demand for oxygen and energy."
-    : "Look at both heart rate and breathing rate. What do those changes suggest about demand?";
-
+  lock("#bio-stage-3 .choice");
+  const feedback=document.getElementById("bio-feedback-3");
   if(correct){
-
-    setTimeout(()=>{
-
-      currentStage = 4;
-      updateGameHeader();
-
-      document.getElementById("bio-stage-3")
-        .classList.add("hidden");
-
-      document.getElementById("bio-stage-4")
-        .classList.remove("hidden");
-
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Detak jantung dan frekuensi napas meningkat karena kebutuhan tubuh terhadap oksigen dan energi bertambah.";
+    nextButton("bio-feedback-3",()=>{
+      document.getElementById("bio-stage-3").classList.add("hidden");
+      document.getElementById("bio-stage-4").classList.remove("hidden");
+      currentStage=4; updateGameHeader();
       window.scrollTo({top:0,behavior:"smooth"});
-
-    },800);
+    });
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Perhatikan bahwa detak jantung dan pernapasan sama-sama meningkat setelah berlari.";
+    retryButton("bio-feedback-3",()=>{
+      document.querySelectorAll("#bio-stage-3 .choice").forEach(b=>b.classList.remove("selected"));
+    },"#bio-stage-3 .choice");
   }
 }
-
 
 function selectExplanation(element,value){
-
-  if(explanationOrder.includes(value)){
-    return;
-  }
-
+  if(explanationOrder.includes(value)) return;
   explanationOrder.push(value);
-
   element.classList.add("selected");
-
-  element.querySelector(".order-num").textContent =
-    explanationOrder.length;
+  element.querySelector(".order-num").textContent=explanationOrder.length;
 }
-
 
 function checkBodyExplanation(){
-
-  const correct = [
-    "activity",
-    "energy",
-    "oxygen",
-    "heart",
-    "breathing"
-  ];
-
-  const isCorrect =
-    explanationOrder.length === 5 &&
-    explanationOrder.every(
-      (x,i) => x === correct[i]
-    );
-
-  const feedback =
-    document.getElementById("bio-feedback-4");
-
-  feedback.className =
-    "feedback show " +
-    (isCorrect ? "correct" : "wrong");
-
-  feedback.textContent =
-    isCorrect
-    ? "Excellent. The causal chain is complete."
-    : "The order is not correct yet. Start with the body's increased activity.";
-
-  if(isCorrect){
-
-    setTimeout(()=>{
-
-      currentStage = 5;
-      updateGameHeader();
-
-      document.getElementById("bio-stage-4")
-        .classList.add("hidden");
-
-      document.getElementById("bio-stage-5")
-        .classList.remove("hidden");
-
+  const correct=["activity","energy","oxygen","heart","breathing"];
+  const ok=explanationOrder.length===5 && explanationOrder.every((x,i)=>x===correct[i]);
+  const feedback=document.getElementById("bio-feedback-4");
+  lock("#bio-stage-4 .order-item, #bio-stage-4 .action-row button");
+  if(ok){
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Urutannya tepat: aktivitas meningkat → kebutuhan energi → kebutuhan oksigen → detak jantung → pernapasan.";
+    nextButton("bio-feedback-4",()=>{
+      document.getElementById("bio-stage-4").classList.add("hidden");
+      document.getElementById("bio-stage-5").classList.remove("hidden");
+      currentStage=5; updateGameHeader();
       window.scrollTo({top:0,behavior:"smooth"});
-
-    },800);
+    });
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Mulailah dari aktivitas tubuh yang meningkat, lalu ikuti hubungan sebab-akibatnya.";
+    retryButton("bio-feedback-4",()=>{
+      explanationOrder=[];
+      document.querySelectorAll("#body-order .order-item").forEach(item=>{
+        item.classList.remove("selected");
+        const n=item.querySelector(".order-num"); if(n)n.textContent="?";
+      });
+    },"#bio-stage-4 .order-item, #bio-stage-4 .action-row button");
   }
 }
-
 
 function solveBodyCase(button,correct){
-
-  document.querySelectorAll(
-    "#bio-stage-5 .choice"
-  ).forEach(b => b.classList.remove("selected"));
-
+  document.querySelectorAll("#bio-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
   button.classList.add("selected");
-
-  const feedback =
-    document.getElementById("bio-feedback-5");
-
-  feedback.className =
-    "feedback show " +
-    (correct ? "correct" : "wrong");
-
-  feedback.textContent =
-    correct
-    ? "CASE SOLVED. Your evidence supports the explanation."
-    : "Review the evidence chain: activity → energy demand → oxygen demand → circulation and breathing.";
-
+  lock("#bio-stage-5 .choice");
+  const feedback=document.getElementById("bio-feedback-5");
   if(correct){
-
-    setTimeout(()=>{
-      finishMission();
-    },1000);
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ KASUS TERPECAHKAN — +3 POIN</strong><br>Tubuh membutuhkan lebih banyak oksigen dan energi, sehingga aktivitas pernapasan dan peredaran darah meningkat.";
+    nextButton("bio-feedback-5",()=>finishMission());
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Gunakan seluruh bukti: aktivitas → energi → oksigen → peredaran darah dan pernapasan.";
+    retryButton("bio-feedback-5",()=>{
+      document.querySelectorAll("#bio-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
+    },"#bio-stage-5 .choice");
   }
 }
-
 
 /* =========================================================
    PHYSICS
 ========================================================= */
 
-let physicsPrediction = null;
+let physicsPrediction=null;
 
 function goPhysicsStage(stage){
-
-  currentStage = stage;
-  updateGameHeader();
-
+  currentStage=stage; updateGameHeader();
   for(let i=1;i<=6;i++){
-
-    const el =
-      document.getElementById("physics-stage-"+i);
-
-    if(el){
-      el.classList.toggle(
-        "hidden",
-        i !== stage
-      );
-    }
+    const el=document.getElementById("physics-stage-"+i);
+    if(el) el.classList.toggle("hidden",i!==stage);
   }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
+function runExperiment(){
+  const input=document.getElementById("physics-prediction");
+  const value=parseFloat(input.value);
+  const feedback=document.getElementById("physics-feedback-2");
+  if(isNaN(value)){
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>Masukkan prediksi terlebih dahulu.</strong>";
+    return;
+  }
+  physicsPrediction=value;
+  lock("#physics-stage-2 .action-row button");
+  input.disabled=true;
+  document.getElementById("prediction-result").textContent=value+" s";
+  feedback.className="feedback show correct";
+  feedback.innerHTML="<strong>✓ PREDIKSI TERCATAT</strong><br>Eksperimen akan menunjukkan waktu sebenarnya. Perhatikan hasilnya sebelum melanjutkan.";
+  nextButton("physics-feedback-2",()=>{
+    goPhysicsStage(3);
+    setTimeout(()=>{document.getElementById("runner-result").style.left="calc(100% - 52px)";},300);
   });
 }
 
-
-function runExperiment(){
-
-  const input =
-    document.getElementById("physics-prediction");
-
-  const value =
-    parseFloat(input.value);
-
-  const feedback =
-    document.getElementById("physics-feedback-2");
-
-  if(isNaN(value)){
-
-    feedback.className="feedback show wrong";
-    feedback.textContent="Enter a prediction first.";
-    return;
-  }
-
-  physicsPrediction = value;
-
-  document.getElementById("prediction-result")
-    .textContent =
-    value + " s";
-
-  feedback.className =
-    "feedback show correct";
-
-  feedback.textContent =
-    "Prediction recorded. The actual experiment takes 6 seconds.";
-
-  setTimeout(()=>{
-
-    goPhysicsStage(3);
-
-    setTimeout(()=>{
-
-      document.getElementById("runner-result")
-        .style.left="calc(100% - 52px)";
-
-    },300);
-
-  },800);
-}
-
-
-function prepareExperiment2(){
-
-  goPhysicsStage(4);
-}
-
+function prepareExperiment2(){ goPhysicsStage(4); }
 
 function updateExperiment2(){
-
-  const input =
-    document.getElementById("experiment-2-input");
-
-  const value =
-    parseFloat(input.value);
-
-  const feedback =
-    document.getElementById("physics-feedback-4");
-
+  const input=document.getElementById("experiment-2-input");
+  const value=parseFloat(input.value);
+  const feedback=document.getElementById("physics-feedback-4");
   if(isNaN(value)){
-
     feedback.className="feedback show wrong";
-    feedback.textContent="Enter your prediction first.";
+    feedback.innerHTML="<strong>Masukkan prediksi terlebih dahulu.</strong>";
     return;
   }
-
-  feedback.className =
-    "feedback show " +
-    (Math.abs(value-3)<0.01
-      ? "correct"
-      : "wrong");
-
-  feedback.textContent =
-    Math.abs(value-3)<0.01
-    ? "Correct. 30 ÷ 10 = 3 seconds."
-    : "Not quite. Use time = distance ÷ speed.";
-
-  if(Math.abs(value-3)<0.01){
-
-    setTimeout(()=>{
-      goPhysicsStage(5);
-    },900);
+  lock("#physics-stage-4 .action-row button");
+  input.disabled=true;
+  const ok=Math.abs(value-3)<0.01;
+  feedback.className="feedback show "+(ok?"correct":"wrong");
+  if(ok){
+    addScore(3);
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>30 meter ÷ 10 m/s = 3 detik.";
+    nextButton("physics-feedback-4",()=>goPhysicsStage(5));
+  }else{
+    addScore(-1);
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Gunakan rumus waktu = jarak ÷ kecepatan.";
+    retryButton("physics-feedback-4",()=>{
+      input.value="";
+      input.disabled=false;
+    },"#physics-stage-4 .action-row button");
   }
 }
-
 
 function goPhysicsFinal(button,correct){
-
-  document.querySelectorAll(
-    "#physics-stage-5 .choice"
-  ).forEach(b=>b.classList.remove("selected"));
-
+  document.querySelectorAll("#physics-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
   button.classList.add("selected");
-
-  const feedback =
-    document.getElementById("physics-feedback-5");
-
-  feedback.className =
-    "feedback show " +
-    (correct ? "correct" : "wrong");
-
-  feedback.textContent =
-    correct
-    ? "Exactly. With the same distance, higher speed means less time."
-    : "Compare the two experiments: distance stayed the same, speed changed.";
-
+  lock("#physics-stage-5 .choice");
+  const feedback=document.getElementById("physics-feedback-5");
   if(correct){
-
-    setTimeout(()=>{
-      goPhysicsStage(6);
-    },800);
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Pada jarak yang sama, kecepatan lebih tinggi berarti waktu tempuh lebih singkat.";
+    nextButton("physics-feedback-5",()=>goPhysicsStage(6));
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Bandingkan dua eksperimen: jaraknya tetap, tetapi kecepatannya berubah.";
+    retryButton("physics-feedback-5",()=>{
+      document.querySelectorAll("#physics-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
+    },"#physics-stage-5 .choice");
   }
 }
-
 
 function answerPhysicsFinal(button,correct){
-
-  document.querySelectorAll(
-    "#physics-stage-6 .choice"
-  ).forEach(b=>b.classList.remove("selected"));
-
+  document.querySelectorAll("#physics-stage-6 .choice").forEach(b=>b.classList.remove("selected"));
   button.classList.add("selected");
-
-  const feedback =
-    document.getElementById("physics-feedback-6");
-
-  feedback.className =
-    "feedback show " +
-    (correct ? "correct" : "wrong");
-
-  feedback.textContent =
-    correct
-    ? "Correct. Runner B has the greater speed, so it reaches 30 m faster."
-    : "Both runners travel the same distance. Compare their speeds.";
-
+  lock("#physics-stage-6 .choice");
+  const feedback=document.getElementById("physics-feedback-6");
   if(correct){
-
-    setTimeout(()=>{
-      finishMission();
-    },1000);
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Pelari B memiliki kecepatan lebih tinggi, sehingga mencapai 30 meter lebih cepat.";
+    nextButton("physics-feedback-6",()=>finishMission());
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Kedua pelari menempuh jarak yang sama. Bandingkan kecepatannya.";
+    retryButton("physics-feedback-6",()=>{
+      document.querySelectorAll("#physics-stage-6 .choice").forEach(b=>b.classList.remove("selected"));
+    },"#physics-stage-6 .choice");
   }
 }
-
 
 /* =========================================================
    SPACE
 ========================================================= */
 
 function goSpaceStage(stage){
-
-  currentStage = stage;
-  updateGameHeader();
-
+  currentStage=stage; updateGameHeader();
   for(let i=1;i<=5;i++){
-
-    const el =
-      document.getElementById("space-stage-"+i);
-
-    if(el){
-      el.classList.toggle(
-        "hidden",
-        i !== stage
-      );
-    }
+    const el=document.getElementById("space-stage-"+i);
+    if(el) el.classList.toggle("hidden",i!==stage);
   }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-
 
 function answerSpaceClue(button,correct){
-
-  document.querySelectorAll(
-    "#space-stage-2 .choice"
-  ).forEach(b=>b.classList.remove("selected"));
-
+  document.querySelectorAll("#space-stage-2 .choice").forEach(b=>b.classList.remove("selected"));
   button.classList.add("selected");
-
-  const feedback =
-    document.getElementById("space-feedback-2");
-
-  feedback.className =
-    "feedback show " +
-    (correct ? "correct" : "wrong");
-
-  feedback.textContent =
-    correct
-    ? "Correct. We receive light that left the object 5 years ago."
-    : "Remember: light has a travel time.";
-
+  lock("#space-stage-2 .choice");
+  const feedback=document.getElementById("space-feedback-2");
   if(correct){
-
-    setTimeout(()=>{
-      goSpaceStage(3);
-    },800);
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Karena cahaya membutuhkan 5 tahun untuk tiba, kita melihat objek seperti keadaannya 5 tahun yang lalu.";
+    nextButton("space-feedback-2",()=>goSpaceStage(3));
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Ingat bahwa cahaya tidak tiba secara instan. Jarak menentukan waktu tempuh cahaya.";
+    retryButton("space-feedback-2",()=>{
+      document.querySelectorAll("#space-stage-2 .choice").forEach(b=>b.classList.remove("selected"));
+    },"#space-stage-2 .choice");
   }
 }
-
 
 function answerSpaceInvestigation(button,correct){
-
-  document.querySelectorAll(
-    "#space-stage-3 .choice"
-  ).forEach(b=>b.classList.remove("selected"));
-
+  document.querySelectorAll("#space-stage-3 .choice").forEach(b=>b.classList.remove("selected"));
   button.classList.add("selected");
-
-  const feedback =
-    document.getElementById("space-feedback-3");
-
-  feedback.className =
-    "feedback show " +
-    (correct ? "correct" : "wrong");
-
-  feedback.textContent =
-    correct
-    ? "Correct. Object B is farther away, so its light took longer to arrive."
-    : "Compare the travel times: 2 years versus 8 years.";
-
+  lock("#space-stage-3 .choice");
+  const feedback=document.getElementById("space-feedback-3");
   if(correct){
-
-    setTimeout(()=>{
-      goSpaceStage(4);
-    },800);
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Objek B lebih jauh, sehingga cahayanya membutuhkan waktu lebih lama untuk sampai ke Bumi.";
+    nextButton("space-feedback-3",()=>goSpaceStage(4));
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Bandingkan waktu tempuh cahaya: 2 tahun untuk A dan 8 tahun untuk B.";
+    retryButton("space-feedback-3",()=>{
+      document.querySelectorAll("#space-stage-3 .choice").forEach(b=>b.classList.remove("selected"));
+    },"#space-stage-3 .choice");
   }
 }
-
 
 function showSpaceWrong(){
-
-  const feedback =
-    document.getElementById("space-feedback-4");
-
-  feedback.className =
-    "feedback show wrong";
-
-  feedback.textContent =
-    "Think about what distance does to light travel time.";
+  addScore(-1);
+  const feedback=document.getElementById("space-feedback-4");
+  feedback.className="feedback show wrong";
+  feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Semakin jauh objek, semakin lama cahaya menempuh perjalanan, sehingga kita melihat masa yang lebih lampau.";
+  const buttons=document.querySelectorAll("#space-stage-4 .choice");
+  lock("#space-stage-4 .choice");
+  retryButton("space-feedback-4",()=>{
+    buttons.forEach(b=>b.classList.remove("selected"));
+  },"#space-stage-4 .choice");
 }
 
-
 function solveSpaceMystery(button,correct){
-
-  document.querySelectorAll(
-    "#space-stage-5 .choice"
-  ).forEach(b=>b.classList.remove("selected"));
-
+  document.querySelectorAll("#space-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
   button.classList.add("selected");
-
-  const feedback =
-    document.getElementById("space-feedback-5");
-
-  feedback.className =
-    "feedback show " +
-    (correct ? "correct" : "wrong");
-
-  feedback.textContent =
-    correct
-    ? "MYSTERY SOLVED. A 10-light-year signal shows an event from 10 years ago."
-    : "The signal travelled for 10 years before reaching Earth.";
-
+  lock("#space-stage-5 .choice");
+  const feedback=document.getElementById("space-feedback-5");
   if(correct){
-
-    setTimeout(()=>{
-      finishMission();
-    },1000);
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ MISTERI TERPECAHKAN — +3 POIN</strong><br>Sinyal menempuh 10 tahun, jadi perubahan yang menghasilkannya terjadi 10 tahun yang lalu.";
+    nextButton("space-feedback-5",()=>finishMission());
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Sinyal dari jarak 10 tahun cahaya membutuhkan 10 tahun untuk sampai ke Bumi.";
+    retryButton("space-feedback-5",()=>{
+      document.querySelectorAll("#space-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
+    },"#space-stage-5 .choice");
   }
 }
 
-
-/* =========================================================
-   FINISH
-========================================================= */
-
 function finishMission(){
-
-  document.getElementById(currentGame+"-game")
-    .classList.add("hidden");
-
-  document.getElementById("final-stage")
-    .classList.remove("hidden");
-
-  currentStage =
-    gameData[currentGame].stages;
-
+  document.getElementById(currentGame+"-game").classList.add("hidden");
+  document.getElementById("final-stage").classList.remove("hidden");
+  currentStage=gameData[currentGame].stages;
   updateGameHeader();
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  const scoreEl=document.querySelector("#final-stage .score");
+  if(scoreEl) scoreEl.textContent=score+" poin";
+  window.scrollTo({top:0,behavior:"smooth"});
 }
+
 
 </script>
 
