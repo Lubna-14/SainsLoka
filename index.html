@@ -3266,7 +3266,7 @@ function checkObservations(){
   if(ok){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Detak jantung, pernapasan, dan aliran darah meningkat untuk membantu memenuhi kebutuhan tubuh saat aktif.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Detak jantung, pernapasan, dan aliran darah meningkat untuk membantu memenuhi kebutuhan tubuh saat aktif.";
     nextButton("bio-feedback-1",()=>{
       document.getElementById("bio-stage-1").classList.add("hidden");
       document.getElementById("bio-stage-2").classList.remove("hidden");
@@ -3276,7 +3276,7 @@ function checkObservations(){
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Pilih tiga perubahan yang paling berkaitan dengan peningkatan kebutuhan oksigen dan aktivitas otot.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Pilih tiga perubahan yang paling berkaitan dengan peningkatan kebutuhan oksigen dan aktivitas otot.";
     retryButton("bio-feedback-1",()=>{
       selectedObservations.clear();
       document.querySelectorAll("#bio-stage-1 .bio-observation").forEach(b=>b.classList.remove("selected"));
@@ -3301,7 +3301,7 @@ function checkBodyClues(){
     addScore(3);
     document.getElementById("body-mechanism").classList.remove("hidden");
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Ketiga bukti ini terhubung dengan kebutuhan energi, oksigen, dan peredaran darah saat tubuh aktif.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Ketiga bukti ini terhubung dengan kebutuhan energi, oksigen, dan peredaran darah saat tubuh aktif.";
     nextButton("bio-feedback-2",()=>{
       document.getElementById("bio-stage-2").classList.add("hidden");
       document.getElementById("bio-stage-3").classList.remove("hidden");
@@ -3311,7 +3311,7 @@ function checkBodyClues(){
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Pilih Oksigen, Energi, dan Darah sebagai tiga petunjuk utama.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Pilih Oksigen, Energi, dan Darah sebagai tiga petunjuk utama.";
     retryButton("bio-feedback-2",()=>{
       selectedBodyClues.clear();
       document.querySelectorAll("#bio-stage-2 .evidence").forEach(e=>e.classList.remove("selected"));
@@ -3328,7 +3328,7 @@ function answerBodyInvestigation(button,correct){
   if(correct){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Detak jantung dan frekuensi napas meningkat karena kebutuhan tubuh terhadap oksigen dan energi bertambah.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Detak jantung dan frekuensi napas meningkat karena kebutuhan tubuh terhadap oksigen dan energi bertambah.";
     nextButton("bio-feedback-3",()=>{
       document.getElementById("bio-stage-3").classList.add("hidden");
       document.getElementById("bio-stage-4").classList.remove("hidden");
@@ -3338,7 +3338,7 @@ function answerBodyInvestigation(button,correct){
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Perhatikan bahwa detak jantung dan pernapasan sama-sama meningkat setelah berlari.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Perhatikan bahwa detak jantung dan pernapasan sama-sama meningkat setelah berlari.";
     retryButton("bio-feedback-3",()=>{
       document.querySelectorAll("#bio-stage-3 .choice").forEach(b=>b.classList.remove("selected"));
     },"#bio-stage-3 .choice");
@@ -3360,7 +3360,7 @@ function checkBodyExplanation(){
   if(ok){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Urutannya tepat: aktivitas meningkat → kebutuhan energi → kebutuhan oksigen → detak jantung → pernapasan.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Urutannya tepat: aktivitas meningkat → kebutuhan energi → kebutuhan oksigen → detak jantung → pernapasan.";
     nextButton("bio-feedback-4",()=>{
       document.getElementById("bio-stage-4").classList.add("hidden");
       document.getElementById("bio-stage-5").classList.remove("hidden");
@@ -3370,7 +3370,7 @@ function checkBodyExplanation(){
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Mulailah dari aktivitas tubuh yang meningkat, lalu ikuti hubungan sebab-akibatnya.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Mulailah dari aktivitas tubuh yang meningkat, lalu ikuti hubungan sebab-akibatnya.";
     retryButton("bio-feedback-4",()=>{
       explanationOrder=[];
       document.querySelectorAll("#body-order .order-item").forEach(item=>{
@@ -3389,12 +3389,12 @@ function solveBodyCase(button,correct){
   if(correct){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ KASUS TERPECAHKAN — +3 POIN</strong><br>Tubuh membutuhkan lebih banyak oksigen dan energi, sehingga aktivitas pernapasan dan peredaran darah meningkat.";
+    feedback.innerHTML="<strong>✓ KASUS TERPECAHKAN — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Tubuh membutuhkan lebih banyak oksigen dan energi, sehingga aktivitas pernapasan dan peredaran darah meningkat.";
     nextButton("bio-feedback-5",()=>finishMission());
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Gunakan seluruh bukti: aktivitas → energi → oksigen → peredaran darah dan pernapasan.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Gunakan seluruh bukti: aktivitas → energi → oksigen → peredaran darah dan pernapasan.";
     retryButton("bio-feedback-5",()=>{
       document.querySelectorAll("#bio-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
     },"#bio-stage-5 .choice");
@@ -3454,11 +3454,11 @@ function updateExperiment2(){
   feedback.className="feedback show "+(ok?"correct":"wrong");
   if(ok){
     addScore(3);
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>30 meter ÷ 10 m/s = 3 detik.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> 30 meter ÷ 10 m/s = 3 detik.";
     nextButton("physics-feedback-4",()=>goPhysicsStage(5));
   }else{
     addScore(-1);
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Gunakan rumus waktu = jarak ÷ kecepatan.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Gunakan rumus waktu = jarak ÷ kecepatan.";
     retryButton("physics-feedback-4",()=>{
       input.value="";
       input.disabled=false;
@@ -3474,12 +3474,12 @@ function goPhysicsFinal(button,correct){
   if(correct){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Pada jarak yang sama, kecepatan lebih tinggi berarti waktu tempuh lebih singkat.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Pada jarak yang sama, kecepatan lebih tinggi berarti waktu tempuh lebih singkat.";
     nextButton("physics-feedback-5",()=>goPhysicsStage(6));
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Bandingkan dua eksperimen: jaraknya tetap, tetapi kecepatannya berubah.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Bandingkan dua eksperimen: jaraknya tetap, tetapi kecepatannya berubah.";
     retryButton("physics-feedback-5",()=>{
       document.querySelectorAll("#physics-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
     },"#physics-stage-5 .choice");
@@ -3494,12 +3494,12 @@ function answerPhysicsFinal(button,correct){
   if(correct){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Pelari B memiliki kecepatan lebih tinggi, sehingga mencapai 30 meter lebih cepat.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Pelari B memiliki kecepatan lebih tinggi, sehingga mencapai 30 meter lebih cepat.";
     nextButton("physics-feedback-6",()=>finishMission());
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Kedua pelari menempuh jarak yang sama. Bandingkan kecepatannya.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Kedua pelari menempuh jarak yang sama. Bandingkan kecepatannya.";
     retryButton("physics-feedback-6",()=>{
       document.querySelectorAll("#physics-stage-6 .choice").forEach(b=>b.classList.remove("selected"));
     },"#physics-stage-6 .choice");
@@ -3527,12 +3527,12 @@ function answerSpaceClue(button,correct){
   if(correct){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Karena cahaya membutuhkan 5 tahun untuk tiba, kita melihat objek seperti keadaannya 5 tahun yang lalu.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Karena cahaya membutuhkan 5 tahun untuk tiba, kita melihat objek seperti keadaannya 5 tahun yang lalu.";
     nextButton("space-feedback-2",()=>goSpaceStage(3));
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Ingat bahwa cahaya tidak tiba secara instan. Jarak menentukan waktu tempuh cahaya.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Ingat bahwa cahaya tidak tiba secara instan. Jarak menentukan waktu tempuh cahaya.";
     retryButton("space-feedback-2",()=>{
       document.querySelectorAll("#space-stage-2 .choice").forEach(b=>b.classList.remove("selected"));
     },"#space-stage-2 .choice");
@@ -3547,12 +3547,12 @@ function answerSpaceInvestigation(button,correct){
   if(correct){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Objek B lebih jauh, sehingga cahayanya membutuhkan waktu lebih lama untuk sampai ke Bumi.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Objek B lebih jauh, sehingga cahayanya membutuhkan waktu lebih lama untuk sampai ke Bumi.";
     nextButton("space-feedback-3",()=>goSpaceStage(4));
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Bandingkan waktu tempuh cahaya: 2 tahun untuk A dan 8 tahun untuk B.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Bandingkan waktu tempuh cahaya: 2 tahun untuk A dan 8 tahun untuk B.";
     retryButton("space-feedback-3",()=>{
       document.querySelectorAll("#space-stage-3 .choice").forEach(b=>b.classList.remove("selected"));
     },"#space-stage-3 .choice");
@@ -3567,12 +3567,12 @@ function answerSpaceInference(button,correct){
   if(correct){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Semakin jauh objek, semakin lama cahaya menempuh perjalanan, sehingga kita melihat keadaan yang lebih lampau.";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Semakin jauh objek, semakin lama cahaya menempuh perjalanan, sehingga kita melihat keadaan yang lebih lampau.";
     nextButton("space-feedback-4",()=>goSpaceStage(5));
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Fokus pada hubungan antara jarak objek dan waktu tempuh cahaya.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Fokus pada hubungan antara jarak objek dan waktu tempuh cahaya.";
     retryButton("space-feedback-4",()=>{
       document.querySelectorAll("#space-stage-4 .choice").forEach(b=>b.classList.remove("selected"));
     },"#space-stage-4 .choice");
@@ -3591,12 +3591,12 @@ function solveSpaceMystery(button,correct){
   if(correct){
     addScore(3);
     feedback.className="feedback show correct";
-    feedback.innerHTML="<strong>✓ MISTERI TERPECAHKAN — +3 POIN</strong><br>Sinyal menempuh 10 tahun, jadi perubahan yang menghasilkannya terjadi 10 tahun yang lalu.";
+    feedback.innerHTML="<strong>✓ MISTERI TERPECAHKAN — +3 POIN</strong><br><strong>PEMBAHASAN:</strong> Sinyal menempuh 10 tahun, jadi perubahan yang menghasilkannya terjadi 10 tahun yang lalu.";
     nextButton("space-feedback-5",()=>finishMission());
   }else{
     addScore(-1);
     feedback.className="feedback show wrong";
-    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Sinyal dari jarak 10 tahun cahaya membutuhkan 10 tahun untuk sampai ke Bumi.";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br><strong>PEMBAHASAN:</strong> Sinyal dari jarak 10 tahun cahaya membutuhkan 10 tahun untuk sampai ke Bumi.";
     retryButton("space-feedback-5",()=>{
       document.querySelectorAll("#space-stage-5 .choice").forEach(b=>b.classList.remove("selected"));
     },"#space-stage-5 .choice");
