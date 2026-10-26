@@ -3007,13 +3007,13 @@ button:disabled{
           <div class="choice-grid">
 
             <button class="choice"
-              onclick="goSpaceStage(5)">
+              onclick="answerSpaceInference(this,true)">
               Objek yang lebih jauh memungkinkan kita melihat
               keadaan yang lebih lampau.
             </button>
 
             <button class="choice"
-              onclick="showSpaceWrong()">
+              onclick="answerSpaceInference(this,false)">
               Objek yang lebih jauh selalu lebih terang.
             </button>
 
@@ -3561,16 +3561,28 @@ function answerSpaceInvestigation(button,correct){
   }
 }
 
-function showSpaceWrong(){
-  addScore(-1);
-  const feedback=document.getElementById("space-feedback-4");
-  feedback.className="feedback show wrong";
-  feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Semakin jauh objek, semakin lama cahaya menempuh perjalanan, sehingga kita melihat masa yang lebih lampau.";
-  const buttons=document.querySelectorAll("#space-stage-4 .choice");
+function answerSpaceInference(button,correct){
+  document.querySelectorAll("#space-stage-4 .choice").forEach(b=>b.classList.remove("selected"));
+  button.classList.add("selected");
   lock("#space-stage-4 .choice");
-  retryButton("space-feedback-4",()=>{
-    buttons.forEach(b=>b.classList.remove("selected"));
-  },"#space-stage-4 .choice");
+  const feedback=document.getElementById("space-feedback-4");
+  if(correct){
+    addScore(3);
+    feedback.className="feedback show correct";
+    feedback.innerHTML="<strong>✓ BENAR — +3 POIN</strong><br>Semakin jauh objek, semakin lama cahaya menempuh perjalanan, sehingga kita melihat keadaan yang lebih lampau.";
+    nextButton("space-feedback-4",()=>goSpaceStage(5));
+  }else{
+    addScore(-1);
+    feedback.className="feedback show wrong";
+    feedback.innerHTML="<strong>✕ SALAH — −1 POIN</strong><br>Fokus pada hubungan antara jarak objek dan waktu tempuh cahaya.";
+    retryButton("space-feedback-4",()=>{
+      document.querySelectorAll("#space-stage-4 .choice").forEach(b=>b.classList.remove("selected"));
+    },"#space-stage-4 .choice");
+  }
+}
+
+function showSpaceWrong(){
+  answerSpaceInference(document.querySelector("#space-stage-4 .choice:last-child"),false);
 }
 
 function solveSpaceMystery(button,correct){
