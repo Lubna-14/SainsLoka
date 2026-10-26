@@ -3196,13 +3196,11 @@ function retryButton(feedbackId,resetFn,unlockSelector){
 function nextButton(feedbackId,nextFn){
   const feedback=document.getElementById(feedbackId);
   clearFeedbackActions(feedback);
-  setTimeout(()=>{
-    const btn=document.createElement("button");
-    btn.className="feedback-action next";
-    btn.textContent="LANJUT KE SOAL BERIKUTNYA →";
-    btn.onclick=nextFn;
-    feedback.appendChild(btn);
-  },ANSWER_PAUSE);
+  const btn=document.createElement("button");
+  btn.className="feedback-action next";
+  btn.textContent="LANJUT KE TAHAP BERIKUTNYA →";
+  btn.onclick=nextFn;
+  feedback.appendChild(btn);
 }
 
 function startGame(type){
