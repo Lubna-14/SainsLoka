@@ -257,6 +257,8 @@ button{
   border:1px solid;
   box-shadow:var(--shadow);
   transition:.25s;
+  display:flex;
+  flex-direction:column;
 }
 
 .challenge-card:hover{
@@ -295,6 +297,8 @@ button{
 .challenge-card p{
   line-height:1.6;
   opacity:.8;
+  max-width:58%;
+  margin-bottom:20px;
 }
 
 .card-illustration{
@@ -303,18 +307,20 @@ button{
   bottom:12px;
   width:145px;
   height:145px;
+  pointer-events:none;
 }
 
 .play-btn{
-  position:absolute;
-  left:25px;
-  bottom:23px;
+  position:static;
+  align-self:flex-start;
+  margin-top:auto;
   border:0;
   padding:11px 17px;
   border-radius:12px;
   font-weight:800;
   background:#332d29;
   color:white;
+  z-index:3;
 }
 
 .space .play-btn{
@@ -1121,6 +1127,10 @@ button{
 ========================================================= */
 
 @media(max-width:800px){
+  .challenge-card p{
+    max-width:62%;
+  }
+
 
   .challenge-grid{
     grid-template-columns:1fr;
